@@ -90,18 +90,19 @@
         </_.fcp.ObjectModelEncapsulateLegacy.false...relation>
         <_.fcp.ObjectModelEncapsulateLegacy.true...relation type='collection'>
           <relation connection='excel-direct.08dx9gy0l2q3z91dk950v1fsok65' name='Sheet1' table='[Sheet1$]' type='table'>
-            <columns gridOrigin='A1:K11508:no:A1:K11508:0' header='yes' outcome='6'>
+            <columns gridOrigin='A1:L11350:no:A1:L11350:0' header='yes' outcome='6'>
               <column datatype='integer' name='DonorId' ordinal='0' />
               <column datatype='date' name='LastDonationDate' ordinal='1' />
               <column datatype='integer' name='Recency' ordinal='2' />
               <column datatype='integer' name='Frequency' ordinal='3' />
               <column datatype='real' name='Monetary' ordinal='4' />
-              <column datatype='integer' name='RecencyScore' ordinal='5' />
-              <column datatype='integer' name='FrequencyScore' ordinal='6' />
-              <column datatype='integer' name='MonetaryScore' ordinal='7' />
-              <column datatype='integer' name='RFM_Score' ordinal='8' />
-              <column datatype='string' name='RFM_Segment' ordinal='9' />
-              <column datatype='string' name='RFM_Customer_Segment' ordinal='10' />
+              <column datatype='real' name='Monetary RFM' ordinal='5' />
+              <column datatype='integer' name='RecencyScore' ordinal='6' />
+              <column datatype='integer' name='FrequencyScore' ordinal='7' />
+              <column datatype='integer' name='MonetaryScore' ordinal='8' />
+              <column datatype='integer' name='RFM_Score' ordinal='9' />
+              <column datatype='string' name='RFM_Segment' ordinal='10' />
+              <column datatype='string' name='RFM_Customer_Segment' ordinal='11' />
             </columns>
           </relation>
           <relation connection='textscan.1a21s330i1quwa16wyyao0i49wax' name='Donations accepted by political parties.csv' table='[Donations accepted by political parties#csv]' type='table'>
@@ -160,6 +161,7 @@
           <map key='[IsReportedPrePoll]' value='[Donations accepted by political parties.csv].[IsReportedPrePoll]' />
           <map key='[IsSponsorship]' value='[Donations accepted by political parties.csv].[IsSponsorship]' />
           <map key='[LastDonationDate]' value='[Sheet1].[LastDonationDate]' />
+          <map key='[Monetary RFM]' value='[Sheet1].[Monetary RFM]' />
           <map key='[MonetaryScore]' value='[Sheet1].[MonetaryScore]' />
           <map key='[Monetary]' value='[Sheet1].[Monetary]' />
           <map key='[NatureOfDonation]' value='[Donations accepted by political parties.csv].[NatureOfDonation]' />
@@ -189,8 +191,8 @@
             <aggregation>Count</aggregation>
             <contains-null>true</contains-null>
             <attributes>
-              <attribute datatype='integer' name='context'>0</attribute>
-              <attribute datatype='string' name='gridOrigin'>&quot;A1:K11508:no:A1:K11508:0&quot;</attribute>
+              <attribute datatype='integer' name='context'>2</attribute>
+              <attribute datatype='string' name='gridOrigin'>&quot;A1:L11350:no:A1:L11350:0&quot;</attribute>
               <attribute datatype='boolean' name='header'>true</attribute>
               <attribute datatype='integer' name='outcome'>6</attribute>
             </attributes>
@@ -288,12 +290,28 @@
             <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
           </metadata-record>
           <metadata-record class='column'>
+            <remote-name>Monetary RFM</remote-name>
+            <remote-type>5</remote-type>
+            <local-name>[Monetary RFM]</local-name>
+            <parent-name>[Sheet1]</parent-name>
+            <remote-alias>Monetary RFM</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>15</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;R8&quot;</attribute>
+            </attributes>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
             <remote-name>RecencyScore</remote-name>
             <remote-type>20</remote-type>
             <local-name>[RecencyScore]</local-name>
             <parent-name>[Sheet1]</parent-name>
             <remote-alias>RecencyScore</remote-alias>
-            <ordinal>5</ordinal>
+            <ordinal>6</ordinal>
             <local-type>integer</local-type>
             <aggregation>Sum</aggregation>
             <contains-null>true</contains-null>
@@ -308,7 +326,7 @@
             <local-name>[FrequencyScore]</local-name>
             <parent-name>[Sheet1]</parent-name>
             <remote-alias>FrequencyScore</remote-alias>
-            <ordinal>6</ordinal>
+            <ordinal>7</ordinal>
             <local-type>integer</local-type>
             <aggregation>Sum</aggregation>
             <contains-null>true</contains-null>
@@ -323,7 +341,7 @@
             <local-name>[MonetaryScore]</local-name>
             <parent-name>[Sheet1]</parent-name>
             <remote-alias>MonetaryScore</remote-alias>
-            <ordinal>7</ordinal>
+            <ordinal>8</ordinal>
             <local-type>integer</local-type>
             <aggregation>Sum</aggregation>
             <contains-null>true</contains-null>
@@ -338,7 +356,7 @@
             <local-name>[RFM_Score]</local-name>
             <parent-name>[Sheet1]</parent-name>
             <remote-alias>RFM_Score</remote-alias>
-            <ordinal>8</ordinal>
+            <ordinal>9</ordinal>
             <local-type>integer</local-type>
             <aggregation>Sum</aggregation>
             <contains-null>true</contains-null>
@@ -353,7 +371,7 @@
             <local-name>[RFM_Segment]</local-name>
             <parent-name>[Sheet1]</parent-name>
             <remote-alias>RFM_Segment</remote-alias>
-            <ordinal>9</ordinal>
+            <ordinal>10</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <contains-null>true</contains-null>
@@ -369,7 +387,7 @@
             <local-name>[RFM_Customer_Segment]</local-name>
             <parent-name>[Sheet1]</parent-name>
             <remote-alias>RFM_Customer_Segment</remote-alias>
-            <ordinal>10</ordinal>
+            <ordinal>11</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <contains-null>true</contains-null>
@@ -385,7 +403,7 @@
             <local-name>[ECRef]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>ECRef</remote-alias>
-            <ordinal>11</ordinal>
+            <ordinal>12</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <scale>1</scale>
@@ -400,7 +418,7 @@
             <local-name>[RegulatedEntityName]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>RegulatedEntityName</remote-alias>
-            <ordinal>12</ordinal>
+            <ordinal>13</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <scale>1</scale>
@@ -415,7 +433,7 @@
             <local-name>[RegulatedEntityType]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>RegulatedEntityType</remote-alias>
-            <ordinal>13</ordinal>
+            <ordinal>14</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <scale>1</scale>
@@ -430,7 +448,7 @@
             <local-name>[Value]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>Value</remote-alias>
-            <ordinal>14</ordinal>
+            <ordinal>15</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <scale>1</scale>
@@ -445,7 +463,7 @@
             <local-name>[AcceptedDate]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>AcceptedDate</remote-alias>
-            <ordinal>15</ordinal>
+            <ordinal>16</ordinal>
             <local-type>date</local-type>
             <aggregation>Year</aggregation>
             <contains-null>true</contains-null>
@@ -457,7 +475,7 @@
             <local-name>[AccountingUnitName]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>AccountingUnitName</remote-alias>
-            <ordinal>16</ordinal>
+            <ordinal>17</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <scale>1</scale>
@@ -472,7 +490,7 @@
             <local-name>[DonorName]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>DonorName</remote-alias>
-            <ordinal>17</ordinal>
+            <ordinal>18</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <scale>1</scale>
@@ -487,7 +505,7 @@
             <local-name>[AccountingUnitsAsCentralParty]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>AccountingUnitsAsCentralParty</remote-alias>
-            <ordinal>18</ordinal>
+            <ordinal>19</ordinal>
             <local-type>boolean</local-type>
             <aggregation>Count</aggregation>
             <contains-null>true</contains-null>
@@ -499,7 +517,7 @@
             <local-name>[IsSponsorship]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>IsSponsorship</remote-alias>
-            <ordinal>19</ordinal>
+            <ordinal>20</ordinal>
             <local-type>boolean</local-type>
             <aggregation>Count</aggregation>
             <contains-null>true</contains-null>
@@ -511,7 +529,7 @@
             <local-name>[DonorStatus]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>DonorStatus</remote-alias>
-            <ordinal>20</ordinal>
+            <ordinal>21</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <scale>1</scale>
@@ -526,7 +544,7 @@
             <local-name>[RegulatedDoneeType]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>RegulatedDoneeType</remote-alias>
-            <ordinal>21</ordinal>
+            <ordinal>22</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <scale>1</scale>
@@ -541,7 +559,7 @@
             <local-name>[CompanyRegistrationNumber]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>CompanyRegistrationNumber</remote-alias>
-            <ordinal>22</ordinal>
+            <ordinal>23</ordinal>
             <local-type>integer</local-type>
             <aggregation>Sum</aggregation>
             <contains-null>true</contains-null>
@@ -553,7 +571,7 @@
             <local-name>[Postcode]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>Postcode</remote-alias>
-            <ordinal>23</ordinal>
+            <ordinal>24</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <scale>1</scale>
@@ -568,7 +586,7 @@
             <local-name>[DonationType]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>DonationType</remote-alias>
-            <ordinal>24</ordinal>
+            <ordinal>25</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <scale>1</scale>
@@ -583,7 +601,7 @@
             <local-name>[NatureOfDonation]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>NatureOfDonation</remote-alias>
-            <ordinal>25</ordinal>
+            <ordinal>26</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <scale>1</scale>
@@ -598,7 +616,7 @@
             <local-name>[PurposeOfVisit]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>PurposeOfVisit</remote-alias>
-            <ordinal>26</ordinal>
+            <ordinal>27</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <scale>1</scale>
@@ -613,7 +631,7 @@
             <local-name>[DonationAction]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>DonationAction</remote-alias>
-            <ordinal>27</ordinal>
+            <ordinal>28</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <approx-count>1</approx-count>
@@ -629,7 +647,7 @@
             <local-name>[ReceivedDate]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>ReceivedDate</remote-alias>
-            <ordinal>28</ordinal>
+            <ordinal>29</ordinal>
             <local-type>date</local-type>
             <aggregation>Year</aggregation>
             <contains-null>true</contains-null>
@@ -641,7 +659,7 @@
             <local-name>[ReportedDate]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>ReportedDate</remote-alias>
-            <ordinal>29</ordinal>
+            <ordinal>30</ordinal>
             <local-type>date</local-type>
             <aggregation>Year</aggregation>
             <contains-null>true</contains-null>
@@ -653,7 +671,7 @@
             <local-name>[IsReportedPrePoll]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>IsReportedPrePoll</remote-alias>
-            <ordinal>30</ordinal>
+            <ordinal>31</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <approx-count>1</approx-count>
@@ -669,7 +687,7 @@
             <local-name>[ReportingPeriodName]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>ReportingPeriodName</remote-alias>
-            <ordinal>31</ordinal>
+            <ordinal>32</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <scale>1</scale>
@@ -684,7 +702,7 @@
             <local-name>[IsBequest]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>IsBequest</remote-alias>
-            <ordinal>32</ordinal>
+            <ordinal>33</ordinal>
             <local-type>boolean</local-type>
             <aggregation>Count</aggregation>
             <contains-null>true</contains-null>
@@ -696,7 +714,7 @@
             <local-name>[IsAggregation]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>IsAggregation</remote-alias>
-            <ordinal>33</ordinal>
+            <ordinal>34</ordinal>
             <local-type>boolean</local-type>
             <aggregation>Count</aggregation>
             <contains-null>true</contains-null>
@@ -708,7 +726,7 @@
             <local-name>[RegulatedEntityId]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>RegulatedEntityId</remote-alias>
-            <ordinal>34</ordinal>
+            <ordinal>35</ordinal>
             <local-type>integer</local-type>
             <aggregation>Sum</aggregation>
             <contains-null>true</contains-null>
@@ -720,7 +738,7 @@
             <local-name>[AccountingUnitId]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>AccountingUnitId</remote-alias>
-            <ordinal>35</ordinal>
+            <ordinal>36</ordinal>
             <local-type>integer</local-type>
             <aggregation>Sum</aggregation>
             <contains-null>true</contains-null>
@@ -732,7 +750,7 @@
             <local-name>[DonorId (Donations accepted by political parties.csv)]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>DonorId</remote-alias>
-            <ordinal>36</ordinal>
+            <ordinal>37</ordinal>
             <local-type>integer</local-type>
             <aggregation>Sum</aggregation>
             <contains-null>true</contains-null>
@@ -744,7 +762,7 @@
             <local-name>[CampaigningName]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>CampaigningName</remote-alias>
-            <ordinal>37</ordinal>
+            <ordinal>38</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <approx-count>1</approx-count>
@@ -760,7 +778,7 @@
             <local-name>[RegisterName]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>RegisterName</remote-alias>
-            <ordinal>38</ordinal>
+            <ordinal>39</ordinal>
             <local-type>string</local-type>
             <aggregation>Count</aggregation>
             <scale>1</scale>
@@ -775,7 +793,7 @@
             <local-name>[IsIrishSource]</local-name>
             <parent-name>[Donations accepted by political parties.csv]</parent-name>
             <remote-alias>IsIrishSource</remote-alias>
-            <ordinal>39</ordinal>
+            <ordinal>40</ordinal>
             <local-type>boolean</local-type>
             <aggregation>Count</aggregation>
             <contains-null>true</contains-null>
@@ -3856,18 +3874,19 @@
           <object caption='Sheet1' id='Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9'>
             <properties context=''>
               <relation connection='excel-direct.08dx9gy0l2q3z91dk950v1fsok65' name='Sheet1' table='[Sheet1$]' type='table'>
-                <columns gridOrigin='A1:K11508:no:A1:K11508:0' header='yes' outcome='6'>
+                <columns gridOrigin='A1:L11350:no:A1:L11350:0' header='yes' outcome='6'>
                   <column datatype='integer' name='DonorId' ordinal='0' />
                   <column datatype='date' name='LastDonationDate' ordinal='1' />
                   <column datatype='integer' name='Recency' ordinal='2' />
                   <column datatype='integer' name='Frequency' ordinal='3' />
                   <column datatype='real' name='Monetary' ordinal='4' />
-                  <column datatype='integer' name='RecencyScore' ordinal='5' />
-                  <column datatype='integer' name='FrequencyScore' ordinal='6' />
-                  <column datatype='integer' name='MonetaryScore' ordinal='7' />
-                  <column datatype='integer' name='RFM_Score' ordinal='8' />
-                  <column datatype='string' name='RFM_Segment' ordinal='9' />
-                  <column datatype='string' name='RFM_Customer_Segment' ordinal='10' />
+                  <column datatype='real' name='Monetary RFM' ordinal='5' />
+                  <column datatype='integer' name='RecencyScore' ordinal='6' />
+                  <column datatype='integer' name='FrequencyScore' ordinal='7' />
+                  <column datatype='integer' name='MonetaryScore' ordinal='8' />
+                  <column datatype='integer' name='RFM_Score' ordinal='9' />
+                  <column datatype='string' name='RFM_Segment' ordinal='10' />
+                  <column datatype='string' name='RFM_Customer_Segment' ordinal='11' />
                 </columns>
               </relation>
             </properties>
@@ -4842,7 +4861,7 @@
             <style>
               <style-rule element='mark'>
                 <format attr='shape' value=':filled/circle' />
-                <format attr='mark-transparency' value='129' />
+                <format attr='mark-transparency' value='73' />
               </style-rule>
             </style>
           </pane>
@@ -5462,7 +5481,7 @@
                     <zone h='50214' id='94' param='horz' type-v2='layout-flow' w='87374' x='1438' y='10857'>
                       <zone h='50214' id='99' param='vert' type-v2='layout-flow' w='29061' x='1438' y='10857'>
                         <zone fixed-size='703' h='50214' id='27' is-fixed='true' name='Donor Segments' w='29061' x='1438' y='10857'>
-                          <layout-cache cell-count-w='1' fixed-size-h='128' type-h='fixed' type-w='cell' />
+                          <layout-cache fixed-size-h='128' type-h='fixed' type-w='cell' />
                           <zone-style>
                             <format attr='border-color' value='#d4d4d4' />
                             <format attr='border-style' value='solid' />
@@ -5626,7 +5645,7 @@
                   <format attr='margin' value='4' />
                 </zone-style>
               </zone>
-              <zone h='11857' id='103' name='Frequency vs Recency' pane-specification-id='2' param='[federated.07we6dr180747v10gveja160dayo].[sum:Monetary:qk]' type-v2='size' w='9750' x='89062' y='22213'>
+              <zone h='9000' id='103' name='Frequency vs Recency' pane-specification-id='2' param='[federated.07we6dr180747v10gveja160dayo].[sum:Monetary:qk]' type-v2='size' w='9750' x='89062' y='22213'>
                 <zone-style>
                   <format attr='border-color' value='#000000' />
                   <format attr='border-style' value='none' />
@@ -5634,7 +5653,7 @@
                   <format attr='margin' value='4' />
                 </zone-style>
               </zone>
-              <zone h='4642' id='105' name='Donor Activity Heat Map' pane-specification-id='0' param='[federated.07we6dr180747v10gveja160dayo].[sum:Calculation_3935090601008328704:qk]' type-v2='color' w='9750' x='89062' y='34070'>
+              <zone h='4642' id='105' name='Donor Activity Heat Map' pane-specification-id='0' param='[federated.07we6dr180747v10gveja160dayo].[sum:Calculation_3935090601008328704:qk]' type-v2='color' w='9750' x='89062' y='31213'>
                 <zone-style>
                   <format attr='border-color' value='#000000' />
                   <format attr='border-style' value='none' />
@@ -6376,7 +6395,7 @@
       </cards>
       <simple-id uuid='{814486FC-1B50-443A-9C13-7483051A64FC}' />
     </window>
-    <window class='worksheet' name='Frequency vs Recency' tab-color='#a65200'>
+    <window class='worksheet' maximized='true' name='Frequency vs Recency' tab-color='#a65200'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -6694,7 +6713,7 @@
       </cards>
       <simple-id uuid='{01E7CFD9-3D29-4AFC-8077-220933596C66}' />
     </window>
-    <window class='dashboard' maximized='true' name='2019 Donor Dashboard'>
+    <window class='dashboard' name='2019 Donor Dashboard'>
       <viewpoints>
         <viewpoint name='Donations By Donor Type'>
           <zoom type='entire-view' />
@@ -6721,7 +6740,7 @@
           <zoom type='fit-width' />
         </viewpoint>
       </viewpoints>
-      <active id='27' />
+      <active id='101' />
       <grid grid-size='30' />
       <simple-id uuid='{F95123A6-FA9D-4AF5-A5A8-DD20642C0E37}' />
     </window>
