@@ -16,17 +16,18 @@ The RFM model was applied to data from the previous 3 elections (2010-2019). Don
 
 # Executive Summary
  
- >There were a total of `3642` donors participating in the UK's 2019 general election, which raised a total of `£ 150,700,453`. This election saw a `23.77%` drop in donations when compared to the previous election cycle and a donor dropout rate (DDR) of `98.75%`.
+ There were a total of `3642` donors participating in the UK's 2019 general election, which raised a total of `£ 150,700,453`. This election saw a `23.77%` drop in donations when compared to the previous election cycle and a donor dropout rate (DDR) of `98.75%`.
 
->RFM results from 2010 to 2019:
+RFM results from 2010 to 2019:
 - **Champions** - `1180` donors accounting for `77.85%` of all donations.
 - **Potential Loyalists** - `4729` donors accounting for `15.91%` of all donations.
 - **At Risk Customers** - `2607` donors accounting for `3.31%` of all donations.
 - **Can't Lose** - `930` donors accounting for `1.39%` of all donations.
 - **Lost** - `2067` donors accounting for `1.54%` of all donations.
 
->Cash is the most common donation mechanism and donors are more likely to give in March, June, September and December. 
+Cash is the most common donation mechanism and donors are more likely to give in March, June, September and December. 
 
+A more detailed dashboard can be found in [Tableau](https://public.tableau.com/views/RFMDashboard_17256472286970/2019DonorDashboard?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link).
 
 # Insights
 
