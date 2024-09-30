@@ -4430,13 +4430,25 @@
             <datasource caption='output' name='federated.07we6dr180747v10gveja160dayo' />
           </datasources>
           <datasource-dependencies datasource='federated.07we6dr180747v10gveja160dayo'>
+            <column caption='num_value' datatype='real' name='[Calculation_1848586965291671552]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='FLOAT(REPLACE([Value], &apos;£&apos;, &apos;&apos;))' />
+            </column>
             <column caption='Election Group' datatype='date' name='[Calculation_4812588841739190273]' role='dimension' type='quantitative'>
               <calculation class='tableau' formula='IF  [ReportedDate]&lt;= #2001-06-07# THEN DATE(#2001-06-07#)&#10;ELSEIF [ReportedDate]&lt;= #2005-05-05# THEN DATE(#2005-05-05#)&#10;ELSEIF [ReportedDate]&lt;= #2010-05-06# THEN DATE(#2010-05-06#)&#10;ELSEIF [ReportedDate]&lt;= #2015-05-07# THEN DATE(#2015-05-07#)&#10;ELSEIF [ReportedDate]&lt;= #2017-06-08# THEN DATE(#2017-06-08#)&#10;ELSEIF [ReportedDate]&lt;= #2019-12-12# THEN DATE(#2019-12-12#)&#10;ELSEIF [ReportedDate]&lt;= #2024-07-04# THEN DATE(#2024-07-04#)&#10;ELSE NULL&#10;&#10;END' />
             </column>
             <column caption='Received Date' datatype='date' name='[ReceivedDate]' role='dimension' type='ordinal' />
             <column caption='Reported Date' datatype='date' name='[ReportedDate]' role='dimension' type='ordinal' />
+            <column datatype='string' name='[Value]' role='dimension' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
-            <column-instance column='[Calculation_4812588841739190273]' derivation='Year-Trunc' name='[tyr:Calculation_4812588841739190273:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Calculation_1848586965291671552]' derivation='Sum' name='[pcdf:sum:Calculation_1848586965291671552:ok]' pivot='key' type='ordinal'>
+              <table-calc diff-options='Relative' ordering-type='Columns' type='PctDiff'>
+                <address>
+                  <value>-1</value>
+                </address>
+              </table-calc>
+            </column-instance>
+            <column-instance column='[Calculation_1848586965291671552]' derivation='Sum' name='[sum:Calculation_1848586965291671552:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Calculation_4812588841739190273]' derivation='Year-Trunc' name='[tyr:Calculation_4812588841739190273:ok]' pivot='key' type='ordinal' />
           </datasource-dependencies>
           <slices>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
@@ -4445,14 +4457,14 @@
         </view>
         <style />
         <panes>
-          <pane selection-relaxation-option='selection-relaxation-allow'>
+          <pane id='2' selection-relaxation-option='selection-relaxation-allow'>
             <view>
               <breakdown value='auto' />
             </view>
             <mark class='Automatic' />
           </pane>
         </panes>
-        <rows>[federated.07we6dr180747v10gveja160dayo].[tyr:Calculation_4812588841739190273:qk]</rows>
+        <rows>([federated.07we6dr180747v10gveja160dayo].[tyr:Calculation_4812588841739190273:ok] / ([federated.07we6dr180747v10gveja160dayo].[sum:Calculation_1848586965291671552:ok] / [federated.07we6dr180747v10gveja160dayo].[pcdf:sum:Calculation_1848586965291671552:ok]))</rows>
         <cols />
       </table>
       <simple-id uuid='{65105A41-F285-4850-855A-12E878EDEC9B}' />
@@ -4922,12 +4934,14 @@
           </datasources>
           <datasource-dependencies datasource='federated.07we6dr180747v10gveja160dayo'>
             <column caption='Donation Type' datatype='string' name='[DonationType]' role='dimension' type='nominal' />
+            <column caption='Donor Id' datatype='integer' name='[DonorId]' role='dimension' type='ordinal' />
             <column datatype='real' name='[Monetary]' role='measure' type='quantitative' />
             <column caption='RFM Customer Segment' datatype='string' name='[RFM_Customer_Segment]' role='dimension' type='nominal' />
             <_.fcp.ObjectModelTableType.false...column caption='Sheet1' datatype='integer' name='[__tableau_internal_object_id__].[Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9]' role='measure' type='quantitative' />
             <column caption='Received Date' datatype='date' name='[ReceivedDate]' role='dimension' type='ordinal' />
             <_.fcp.ObjectModelTableType.true...column caption='Sheet1' datatype='table' name='[__tableau_internal_object_id__].[Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9]' role='measure' type='quantitative' />
             <column-instance column='[__tableau_internal_object_id__].[Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9]' derivation='Count' name='[__tableau_internal_object_id__].[cnt:Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DonorId]' derivation='CountD' name='[ctd:DonorId:qk]' pivot='key' type='quantitative' />
             <column-instance column='[ReceivedDate]' derivation='Month' name='[mn:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[RFM_Customer_Segment]' derivation='None' name='[none:RFM_Customer_Segment:nk]' pivot='key' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
@@ -4981,19 +4995,19 @@
             </view>
             <mark class='Automatic' />
             <encodings>
+              <text column='[federated.07we6dr180747v10gveja160dayo].[none:RFM_Customer_Segment:nk]' />
               <tooltip column='[federated.07we6dr180747v10gveja160dayo].[pcto:sum:Monetary:qk:2]' />
               <color column='[federated.07we6dr180747v10gveja160dayo].[sum:Monetary:qk]' />
-              <size column='[federated.07we6dr180747v10gveja160dayo].[__tableau_internal_object_id__].[cnt:Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9:qk]' />
-              <text column='[federated.07we6dr180747v10gveja160dayo].[none:RFM_Customer_Segment:nk]' />
               <lod column='[federated.07we6dr180747v10gveja160dayo].[__tableau_internal_object_id__].[cnt:Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9:qk]' />
+              <size column='[federated.07we6dr180747v10gveja160dayo].[ctd:DonorId:qk]' />
             </encodings>
             <customized-tooltip>
               <formatted-text>
                 <run fontcolor='#787878'>RFM Customer Segment:&#9;</run>
                 <run bold='true'><![CDATA[<[federated.07we6dr180747v10gveja160dayo].[none:RFM_Customer_Segment:nk]>]]></run>
                 <run>Æ&#10;</run>
-                <run fontcolor='#787878'>Count of Sheet1:&#9;</run>
-                <run bold='true'><![CDATA[<[federated.07we6dr180747v10gveja160dayo].[__tableau_internal_object_id__].[cnt:Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9:qk]>]]></run>
+                <run fontcolor='#787878'>Donor Count:&#9;</run>
+                <run bold='true'><![CDATA[<[federated.07we6dr180747v10gveja160dayo].[ctd:DonorId:qk]>]]></run>
                 <run>Æ&#10;</run>
                 <run fontcolor='#787878'>% of Total Donations:&#9;</run>
                 <run bold='true'><![CDATA[<[federated.07we6dr180747v10gveja160dayo].[pcto:sum:Monetary:qk:2]>]]></run>
@@ -5688,17 +5702,14 @@
             <column caption='Election Group' datatype='date' name='[Calculation_4812588841739190273]' role='dimension' type='quantitative'>
               <calculation class='tableau' formula='IF  [ReportedDate]&lt;= #2001-06-07# THEN DATE(#2001-06-07#)&#10;ELSEIF [ReportedDate]&lt;= #2005-05-05# THEN DATE(#2005-05-05#)&#10;ELSEIF [ReportedDate]&lt;= #2010-05-06# THEN DATE(#2010-05-06#)&#10;ELSEIF [ReportedDate]&lt;= #2015-05-07# THEN DATE(#2015-05-07#)&#10;ELSEIF [ReportedDate]&lt;= #2017-06-08# THEN DATE(#2017-06-08#)&#10;ELSEIF [ReportedDate]&lt;= #2019-12-12# THEN DATE(#2019-12-12#)&#10;ELSEIF [ReportedDate]&lt;= #2024-07-04# THEN DATE(#2024-07-04#)&#10;ELSE NULL&#10;&#10;END' />
             </column>
-            <column caption='Total Election Donors' datatype='integer' name='[Calculation_4812588841915142153]' role='measure' type='quantitative'>
-              <calculation class='tableau' formula='{FIXED [Calculation_4812588841739190273]: COUNTD([DonorId])}' />
-            </column>
             <column caption='Donation Type' datatype='string' name='[DonationType]' role='dimension' type='nominal' />
             <column caption='Donor Id' datatype='integer' name='[DonorId]' role='dimension' type='ordinal' />
             <column caption='RFM Customer Segment' datatype='string' name='[RFM_Customer_Segment]' role='dimension' type='nominal' />
             <column caption='Received Date' datatype='date' name='[ReceivedDate]' role='dimension' type='ordinal' />
             <column caption='Reported Date' datatype='date' name='[ReportedDate]' role='dimension' type='ordinal' />
+            <column-instance column='[DonorId]' derivation='CountD' name='[ctd:DonorId:qk]' pivot='key' type='quantitative' />
             <column-instance column='[ReceivedDate]' derivation='Month' name='[mn:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
-            <column-instance column='[Calculation_4812588841915142153]' derivation='Sum' name='[sum:Calculation_4812588841915142153:qk]' pivot='key' type='quantitative' />
             <column-instance column='[ReceivedDate]' derivation='Month-Trunc' name='[tmn:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[Calculation_4812588841739190273]' derivation='Year' name='[yr:Calculation_4812588841739190273:ok]' pivot='key' type='ordinal' />
             <column-instance column='[ReceivedDate]' derivation='Year' name='[yr:ReceivedDate:ok]' pivot='key' type='ordinal' />
@@ -5745,7 +5756,7 @@
             </view>
             <mark class='Automatic' />
             <encodings>
-              <text column='[federated.07we6dr180747v10gveja160dayo].[sum:Calculation_4812588841915142153:qk]' />
+              <text column='[federated.07we6dr180747v10gveja160dayo].[ctd:DonorId:qk]' />
             </encodings>
             <style>
               <style-rule element='cell'>
@@ -8315,7 +8326,7 @@
       </cards>
       <simple-id uuid='{470609F2-EE3D-44FB-8523-2DF424706E2E}' />
     </window>
-    <window class='worksheet' maximized='true' name='Donations By Election'>
+    <window class='worksheet' name='Donations By Election'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -8338,7 +8349,7 @@
       </cards>
       <simple-id uuid='{0C0C14AE-8363-4E10-A382-EB5C4A741D19}' />
     </window>
-    <window class='dashboard' name='2019 Donor Dashboard'>
+    <window class='dashboard' maximized='true' name='2019 Donor Dashboard'>
       <viewpoints>
         <viewpoint name='Company Donations'>
           <zoom type='entire-view' />
@@ -8392,7 +8403,7 @@
           <zoom type='entire-view' />
         </viewpoint>
       </viewpoints>
-      <active id='61' />
+      <active id='27' />
       <grid grid-size='30' />
       <simple-id uuid='{F95123A6-FA9D-4AF5-A5A8-DD20642C0E37}' />
     </window>
