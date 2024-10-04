@@ -3734,23 +3734,17 @@
             </map>
           </encoding>
           <encoding attr='color' field='[none:DonorStatus:nk]' palette='UK Sequential Blue' type='palette'>
-            <map to='#012169'>
-              <bucket>&quot;Unincorporated Association&quot;</bucket>
-            </map>
             <map to='#163375'>
               <bucket>&quot;Unidentifiable Donor&quot;</bucket>
             </map>
             <map to='#2b4682'>
               <bucket>&quot;Trust&quot;</bucket>
             </map>
-            <map to='#40588e'>
-              <bucket>&quot;Trade Union&quot;</bucket>
-            </map>
             <map to='#556b9b'>
               <bucket>&quot;Registered Political Party&quot;</bucket>
             </map>
-            <map to='#6a7da7'>
-              <bucket>&quot;Public Fund&quot;</bucket>
+            <map to='#5e72a0'>
+              <bucket>&quot;Company&quot;</bucket>
             </map>
             <map to='#8090b4'>
               <bucket>&quot;Other&quot;</bucket>
@@ -3758,8 +3752,8 @@
             <map to='#95a2c0'>
               <bucket>&quot;Limited Liability Partnership&quot;</bucket>
             </map>
-            <map to='#aab5cd'>
-              <bucket>&quot;Individual&quot;</bucket>
+            <map to='#a1adc7'>
+              <bucket>&quot;Public Fund&quot;</bucket>
             </map>
             <map to='#b6992d'>
               <bucket>&quot;N/A&quot;</bucket>
@@ -3767,14 +3761,20 @@
             <map to='#bfc7d9'>
               <bucket>&quot;Impermissible Donor&quot;</bucket>
             </map>
+            <map to='#c8102e'>
+              <bucket>&quot;Individual&quot;</bucket>
+            </map>
             <map to='#d4dae6'>
               <bucket>&quot;Friendly Society&quot;</bucket>
             </map>
-            <map to='#e9ecf2'>
-              <bucket>&quot;Company&quot;</bucket>
+            <map to='#e4e7ef'>
+              <bucket>&quot;Trade Union&quot;</bucket>
             </map>
             <map to='#ffffff'>
               <bucket>&quot;Building Society&quot;</bucket>
+            </map>
+            <map to='#ffffff'>
+              <bucket>&quot;Unincorporated Association&quot;</bucket>
             </map>
           </encoding>
           <encoding attr='color' field='[none:DonationType:nk]' palette='UK Sequential Blue' type='palette'>
@@ -4199,6 +4199,13 @@
       <simple-id uuid='{164D2149-95CC-4CAD-804C-7EEA6D71E938}' />
     </worksheet>
     <worksheet name='Donation Frequency by Donor Type'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>Donation Frequency</run>
+          </formatted-text>
+        </title>
+      </layout-options>
       <table>
         <view>
           <datasources>
@@ -4212,28 +4219,70 @@
             <column caption='Donor Status' datatype='string' name='[DonorStatus]' role='dimension' type='nominal' />
             <column caption='Received Date' datatype='date' name='[ReceivedDate]' role='dimension' type='ordinal' />
             <_.fcp.ObjectModelTableType.true...column caption='Donations accepted by political parties.csv' datatype='table' name='[__tableau_internal_object_id__].[Donations accepted by political parties.csv_7ED980E6D3784B17A78E4708367A5A71]' role='measure' type='quantitative' />
+            <column-instance column='[ReceivedDate]' derivation='Max' name='[max:ReceivedDate:qk]' pivot='key' type='quantitative' />
             <column-instance column='[DonorStatus]' derivation='None' name='[none:DonorStatus:nk]' pivot='key' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
-            <column-instance column='[Calculation_3935090601008328704]' derivation='Sum' name='[sum:Calculation_3935090601008328704:qk]' pivot='key' type='quantitative' />
-            <column-instance column='[ReceivedDate]' derivation='Month-Trunc' name='[tmn:ReceivedDate:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Calculation_3935090601008328704]' derivation='Sum' name='[pcdf:sum:Calculation_3935090601008328704:qk:2]' pivot='key' type='quantitative'>
+              <table-calc diff-options='Relative' ordering-type='Rows' type='PctDiff'>
+                <address>
+                  <value>-2</value>
+                </address>
+              </table-calc>
+            </column-instance>
+            <column-instance column='[ReceivedDate]' derivation='Year-Trunc' name='[tyr:ReceivedDate:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+            </groupfilter>
+          </filter>
+          <manual-sort column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' direction='ASC'>
+            <dictionary>
+              <bucket>&quot;Individual&quot;</bucket>
+              <bucket>&quot;Company&quot;</bucket>
+              <bucket>&quot;Public Fund&quot;</bucket>
+              <bucket>&quot;Trade Union&quot;</bucket>
+            </dictionary>
+          </manual-sort>
           <slices>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
           </slices>
           <aggregation value='true' />
         </view>
         <style>
           <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.07we6dr180747v10gveja160dayo].[pcdf:sum:Calculation_3935090601008328704:qk:2]' scope='rows' value='' />
+            <format attr='title' class='0' field='[federated.07we6dr180747v10gveja160dayo].[tyr:ReceivedDate:qk]' scope='cols' value='' />
             <format attr='stroke-size' value='0' />
             <format attr='line-visibility' value='off' />
-            <format attr='title' class='0' field='[federated.07we6dr180747v10gveja160dayo].[sum:Calculation_3935090601008328704:qk]' scope='rows' value='' />
-            <format attr='title' class='0' field='[federated.07we6dr180747v10gveja160dayo].[tmn:ReceivedDate:qk]' scope='cols' value='' />
+            <format attr='tick-color' scope='rows' value='#00000000' />
+          </style-rule>
+          <style-rule element='pane'>
+            <format attr='band-color' scope='rows' value='#00000000' />
           </style-rule>
           <style-rule element='table'>
             <format attr='background-color' value='#00000000' />
+            <format attr='band-size' scope='rows' value='1' />
+          </style-rule>
+          <style-rule element='dropline'>
+            <format attr='stroke-size' scope='rows' value='0' />
+            <format attr='line-visibility' scope='rows' value='off' />
+          </style-rule>
+          <style-rule element='refline'>
+            <format attr='stroke-size' scope='rows' value='0' />
+            <format attr='line-visibility' scope='rows' value='off' />
           </style-rule>
           <style-rule element='gridline'>
             <format attr='stroke-size' value='0' />
+            <format attr='line-visibility' scope='rows' value='off' />
+          </style-rule>
+          <style-rule element='zeroline'>
+            <format attr='stroke-size' scope='rows' value='0' />
+            <format attr='line-visibility' scope='rows' value='off' />
           </style-rule>
         </style>
         <panes>
@@ -4245,10 +4294,18 @@
             <encodings>
               <color column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' />
             </encodings>
+            <label-data column='[federated.07we6dr180747v10gveja160dayo].[max:ReceivedDate:qk]' />
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-mode' value='most-recent' />
+                <format attr='mark-labels-range-scope' value='pane' />
+              </style-rule>
+            </style>
           </pane>
         </panes>
-        <rows>[federated.07we6dr180747v10gveja160dayo].[sum:Calculation_3935090601008328704:qk]</rows>
-        <cols>[federated.07we6dr180747v10gveja160dayo].[tmn:ReceivedDate:qk]</cols>
+        <rows>([federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk] * [federated.07we6dr180747v10gveja160dayo].[pcdf:sum:Calculation_3935090601008328704:qk:2])</rows>
+        <cols>[federated.07we6dr180747v10gveja160dayo].[tyr:ReceivedDate:qk]</cols>
       </table>
       <simple-id uuid='{E039672A-A124-4591-B29E-660176D6DC21}' />
     </worksheet>
@@ -4309,6 +4366,14 @@
               <groupfilter function='level-members' level='[RFM_Customer_Segment]' />
             </groupfilter>
           </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+            </groupfilter>
+          </filter>
           <filter class='quantitative' column='[federated.07we6dr180747v10gveja160dayo].[pcto:sum:Calculation_1848586965291671552:qk:2]' included-values='non-null' />
           <slices>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
@@ -4318,6 +4383,7 @@
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (RFM Customer Segment)]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[pcto:sum:Calculation_1848586965291671552:qk:2]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (YEAR(Received Date),MONTH(Received Date))]</column>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -4342,7 +4408,29 @@
             <mark class='Area' />
             <encodings>
               <color column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' />
+              <text column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' />
+              <text column='[federated.07we6dr180747v10gveja160dayo].[pcto:sum:Calculation_1848586965291671552:qk:2]' />
             </encodings>
+            <customized-label>
+              <formatted-text>
+                <run>&lt;</run>
+                <run>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</run>
+                <run>&gt;</run>
+                <run>Æ&#10;</run>
+                <run><![CDATA[<[federated.07we6dr180747v10gveja160dayo].[pcto:sum:Calculation_1848586965291671552:qk:2]>]]></run>
+              </formatted-text>
+            </customized-label>
+            <style>
+              <style-rule element='datalabel'>
+                <format attr='color-mode' value='auto' />
+                <format attr='font-size' value='9' />
+              </style-rule>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-mode' value='all' />
+              </style-rule>
+            </style>
           </pane>
         </panes>
         <rows>[federated.07we6dr180747v10gveja160dayo].[pcto:sum:Calculation_1848586965291671552:qk:2]</rows>
@@ -4386,10 +4474,19 @@
               <groupfilter function='level-members' level='[RFM_Customer_Segment]' />
             </groupfilter>
           </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+            </groupfilter>
+          </filter>
           <slices>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Tooltip (Donor Id)]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Tooltip (Donor Id,RFM Customer Segment)]</column>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -4416,6 +4513,17 @@
             <encodings>
               <color column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' />
             </encodings>
+            <style>
+              <style-rule element='datalabel'>
+                <format attr='color-mode' value='auto' />
+                <format attr='font-size' value='7' />
+              </style-rule>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-mode' value='all' />
+              </style-rule>
+            </style>
           </pane>
         </panes>
         <rows>[federated.07we6dr180747v10gveja160dayo].[sum:Calculation_1848586965291671552:qk]</rows>
@@ -4575,7 +4683,7 @@
         </title>
         <caption>
           <formatted-text>
-            <run fontalignment='1'>Donations vs time (by donation type)</run>
+            <run fontalignment='1'>Donations vs Time </run>
           </formatted-text>
         </caption>
       </layout-options>
@@ -4594,6 +4702,7 @@
             <column caption='Received Date' datatype='date' name='[ReceivedDate]' role='dimension' type='ordinal' />
             <column datatype='string' name='[Value]' role='dimension' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='Month' name='[mn:ReceivedDate:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[DonationType]' derivation='None' name='[none:DonationType:nk]' pivot='key' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[Calculation_1848586965291671552]' derivation='Sum' name='[sum:Calculation_1848586965291671552:qk]' pivot='key' type='quantitative' />
             <column-instance column='[ReceivedDate]' derivation='Quarter-Trunc' name='[tqr:ReceivedDate:qk]' pivot='key' type='quantitative' />
@@ -4638,8 +4747,8 @@
           <style-rule element='axis'>
             <format attr='title' class='0' field='[federated.07we6dr180747v10gveja160dayo].[sum:Calculation_1848586965291671552:qk]' scope='rows' value='' />
             <encoding attr='space' class='1' field='[federated.07we6dr180747v10gveja160dayo].[sum:Calculation_1848586965291671552:qk]' field-type='quantitative' fold='true' scope='rows' type='space' />
-            <format attr='title' class='0' field='[federated.07we6dr180747v10gveja160dayo].[tqr:ReceivedDate:qk]' scope='cols' value='' />
             <format attr='display' class='1' field='[federated.07we6dr180747v10gveja160dayo].[sum:Calculation_1848586965291671552:qk]' scope='rows' value='false' />
+            <format attr='title' class='0' field='[federated.07we6dr180747v10gveja160dayo].[tqr:ReceivedDate:qk]' scope='cols' value='' />
           </style-rule>
           <style-rule element='pane'>
             <format attr='border-width' data-class='total' value='0' />
@@ -4693,7 +4802,7 @@
                 <format attr='mark-labels-cull' value='false' />
                 <format attr='mark-labels-mode' value='line-ends' />
                 <format attr='mark-labels-show' value='false' />
-                <format attr='mark-color' value='#012169' />
+                <format attr='mark-color' value='#d4351d' />
               </style-rule>
             </style>
           </pane>
@@ -4702,6 +4811,9 @@
               <breakdown value='auto' />
             </view>
             <mark class='Area' />
+            <encodings>
+              <color column='[federated.07we6dr180747v10gveja160dayo].[none:DonationType:nk]' />
+            </encodings>
             <style>
               <style-rule element='mark'>
                 <format attr='mark-labels-cull' value='false' />
@@ -4725,7 +4837,7 @@
         </title>
         <caption>
           <formatted-text>
-            <run fontalignment='1'>Composition of donations over time by donatino type</run>
+            <run fontalignment='1'>Composition of donations over time</run>
           </formatted-text>
         </caption>
       </layout-options>
@@ -4743,6 +4855,9 @@
             <column datatype='string' name='[Value]' role='dimension' type='nominal' />
             <column-instance column='[DonationType]' derivation='None' name='[none:DonationType:nk]' pivot='key' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Calculation_1848586965291671552]' derivation='Sum' name='[pcto:sum:Calculation_1848586965291671552:qk:2]' pivot='key' type='quantitative'>
+              <table-calc ordering-type='Columns' type='PctTotal' />
+            </column-instance>
             <column-instance column='[Calculation_1848586965291671552]' derivation='Sum' name='[pcto:sum:Calculation_1848586965291671552:qk:3]' pivot='key' type='quantitative'>
               <table-calc ordering-field='[federated.07we6dr180747v10gveja160dayo].[none:DonationType:nk]' ordering-type='Field' type='PctTotal' />
             </column-instance>
@@ -4773,13 +4888,183 @@
             <mark class='Area' />
             <encodings>
               <color column='[federated.07we6dr180747v10gveja160dayo].[none:DonationType:nk]' />
+              <text column='[federated.07we6dr180747v10gveja160dayo].[none:DonationType:nk]' />
+              <text column='[federated.07we6dr180747v10gveja160dayo].[pcto:sum:Calculation_1848586965291671552:qk:2]' />
             </encodings>
+            <customized-label>
+              <formatted-text>
+                <run>&lt;</run>
+                <run>[federated.07we6dr180747v10gveja160dayo].[none:DonationType:nk]</run>
+                <run>&gt;&#10;</run>
+                <run><![CDATA[<[federated.07we6dr180747v10gveja160dayo].[pcto:sum:Calculation_1848586965291671552:qk:2]>]]></run>
+              </formatted-text>
+            </customized-label>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+            </style>
           </pane>
         </panes>
         <rows>[federated.07we6dr180747v10gveja160dayo].[pcto:sum:Calculation_1848586965291671552:qk:3]</rows>
         <cols>[federated.07we6dr180747v10gveja160dayo].[tyr:ReceivedDate:qk]</cols>
       </table>
       <simple-id uuid='{20D5B906-75A9-4470-9AE5-2D20AE86AE82}' />
+    </worksheet>
+    <worksheet name='Donations Over Time Moving Average'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>&lt;Sheet Name&gt;</run>
+          </formatted-text>
+        </title>
+        <caption>
+          <formatted-text>
+            <run fontalignment='1'>Donations vs time (by donation type)</run>
+          </formatted-text>
+        </caption>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='output' name='federated.07we6dr180747v10gveja160dayo' />
+          </datasources>
+          <datasource-dependencies datasource='federated.07we6dr180747v10gveja160dayo'>
+            <column caption='num_value' datatype='real' name='[Calculation_1848586965291671552]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='FLOAT(REPLACE([Value], &apos;£&apos;, &apos;&apos;))' />
+            </column>
+            <column caption='Donation Type' datatype='string' name='[DonationType]' role='dimension' type='nominal' />
+            <column caption='Donor Id' datatype='integer' name='[DonorId]' role='dimension' type='ordinal' />
+            <column caption='RFM Customer Segment' datatype='string' name='[RFM_Customer_Segment]' role='dimension' type='nominal' />
+            <column caption='Received Date' datatype='date' name='[ReceivedDate]' role='dimension' type='ordinal' />
+            <column datatype='string' name='[Value]' role='dimension' type='nominal' />
+            <column-instance column='[ReceivedDate]' derivation='Month' name='[mn:ReceivedDate:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[ReceivedDate]' derivation='Month-Trunc' name='[tmn:ReceivedDate:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[ReceivedDate]' derivation='Year-Trunc' name='[tyr:ReceivedDate:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Calculation_1848586965291671552]' derivation='Sum' name='[win:sum:Calculation_1848586965291671552:qk]' pivot='key' type='quantitative'>
+              <table-calc aggregation='Avg' from='-2' ordering-type='Rows' to='0' type='WindowTotal' window-options='IncludeCurrent' />
+            </column-instance>
+            <column-instance column='[ReceivedDate]' derivation='Year' name='[yr:ReceivedDate:ok]' pivot='key' type='ordinal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[Action (Donation Type,YEAR(Received Date))]'>
+            <groupfilter function='crossjoin' user:ui-action-filter='[Action3_353E929F921245058A1BED9F901E7D22]' user:ui-enumeration='all' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[DonationType]' />
+              <groupfilter function='level-members' level='[tyr:ReceivedDate:ok]' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[Action (RFM Customer Segment)]'>
+            <groupfilter function='level-members' level='[RFM_Customer_Segment]' user:ui-action-filter='[Action3_192D929C37A04B0FA4E055DDA46AFDDE]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[Action (YEAR(Received Date),MONTH(Received Date))]'>
+            <groupfilter function='crossjoin' user:ui-action-filter='[Action5_A029BB6E1C234F8C84EEE11EFCC5C896]' user:ui-enumeration='all' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[yr:ReceivedDate:ok]' />
+              <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[Tooltip (Donor Id)]'>
+            <groupfilter function='level-members' level='[DonorId]' user:ui-action-filter='[Action - Donations Over Time]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[Tooltip (Donor Id,RFM Customer Segment)]'>
+            <groupfilter function='crossjoin' user:ui-action-filter='[Action - Donations Over Time]' user:ui-enumeration='all' user:ui-marker='enumerate'>
+              <groupfilter function='level-members' level='[DonorId]' />
+              <groupfilter function='level-members' level='[RFM_Customer_Segment]' />
+            </groupfilter>
+          </filter>
+          <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
+            <column>[federated.07we6dr180747v10gveja160dayo].[Tooltip (Donor Id)]</column>
+            <column>[federated.07we6dr180747v10gveja160dayo].[Tooltip (Donor Id,RFM Customer Segment)]</column>
+            <column>[federated.07we6dr180747v10gveja160dayo].[Action (Donation Type,YEAR(Received Date))]</column>
+            <column>[federated.07we6dr180747v10gveja160dayo].[Action (RFM Customer Segment)]</column>
+            <column>[federated.07we6dr180747v10gveja160dayo].[Action (YEAR(Received Date),MONTH(Received Date))]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.07we6dr180747v10gveja160dayo].[tmn:ReceivedDate:qk]' scope='cols' value='' />
+            <format attr='display' class='1' field='[federated.07we6dr180747v10gveja160dayo].[win:sum:Calculation_1848586965291671552:qk]' scope='rows' value='false' />
+            <format attr='display' class='0' field='[federated.07we6dr180747v10gveja160dayo].[win:sum:Calculation_1848586965291671552:qk]' scope='rows' value='false' />
+            <encoding attr='space' class='1' field='[federated.07we6dr180747v10gveja160dayo].[win:sum:Calculation_1848586965291671552:qk]' field-type='quantitative' fold='true' scope='rows' type='space' />
+          </style-rule>
+          <style-rule element='pane'>
+            <format attr='border-width' data-class='total' value='0' />
+            <format attr='border-style' data-class='total' value='none' />
+          </style-rule>
+          <style-rule element='table'>
+            <format attr='background-color' value='#00000000' />
+          </style-rule>
+          <style-rule element='worksheet'>
+            <format attr='display-field-labels' scope='cols' value='false' />
+          </style-rule>
+          <style-rule element='dropline'>
+            <format attr='stroke-size' value='0' />
+            <format attr='line-visibility' value='off' />
+          </style-rule>
+          <style-rule element='refline'>
+            <format attr='stroke-size' value='0' />
+            <format attr='line-visibility' value='off' />
+          </style-rule>
+          <style-rule element='gridline'>
+            <format attr='stroke-size' value='0' />
+          </style-rule>
+          <style-rule element='table-div'>
+            <format attr='stroke-size' scope='rows' value='0' />
+            <format attr='line-visibility' scope='rows' value='off' />
+            <format attr='stroke-size' scope='cols' value='0' />
+            <format attr='line-visibility' scope='cols' value='off' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='false' />
+                <format attr='mark-labels-mode' value='line-ends' />
+                <format attr='mark-labels-show' value='false' />
+              </style-rule>
+            </style>
+          </pane>
+          <pane id='1' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.07we6dr180747v10gveja160dayo].[win:sum:Calculation_1848586965291671552:qk]'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='false' />
+                <format attr='mark-labels-mode' value='line-ends' />
+                <format attr='mark-labels-show' value='false' />
+                <format attr='mark-color' value='#012169' />
+              </style-rule>
+            </style>
+          </pane>
+          <pane id='2' selection-relaxation-option='selection-relaxation-allow' y-axis-name='[federated.07we6dr180747v10gveja160dayo].[win:sum:Calculation_1848586965291671552:qk]' y-index='1'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Area' />
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='false' />
+                <format attr='mark-labels-mode' value='line-ends' />
+                <format attr='mark-labels-show' value='false' />
+                <format attr='mark-color' value='#012169' />
+                <format attr='mark-transparency' value='129' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>([federated.07we6dr180747v10gveja160dayo].[win:sum:Calculation_1848586965291671552:qk] + [federated.07we6dr180747v10gveja160dayo].[win:sum:Calculation_1848586965291671552:qk])</rows>
+        <cols>[federated.07we6dr180747v10gveja160dayo].[tmn:ReceivedDate:qk]</cols>
+      </table>
+      <simple-id uuid='{8952F45B-C320-4D72-A602-1725EFFFC63D}' />
     </worksheet>
     <worksheet name='Donations by Donor Group'>
       <table>
@@ -4892,6 +5177,9 @@
           <style-rule element='mark'>
             <encoding attr='color' field='[federated.07we6dr180747v10gveja160dayo].[sum:Calculation_3935090601008328704:qk]' max='1000' min='0' palette='UK Sequential Blue' type='interpolated' />
           </style-rule>
+          <style-rule element='table'>
+            <format attr='background-color' value='#00000000' />
+          </style-rule>
           <style-rule element='worksheet'>
             <format attr='display-field-labels' scope='cols' value='false' />
           </style-rule>
@@ -4907,7 +5195,6 @@
             </encodings>
             <style>
               <style-rule element='mark'>
-                <format attr='has-stroke' value='false' />
                 <format attr='mark-labels-cull' value='true' />
                 <format attr='mark-labels-line-first' value='true' />
                 <format attr='mark-labels-line-last' value='true' />
@@ -4917,6 +5204,7 @@
                 <format attr='mark-labels-range-scope' value='pane' />
                 <format attr='mark-labels-range-field' value='' />
                 <format attr='mark-labels-show' value='false' />
+                <format attr='has-stroke' value='false' />
               </style-rule>
             </style>
           </pane>
@@ -6014,6 +6302,9 @@
             <format attr='cell' value='18' />
             <format attr='cell-q' value='90' />
           </style-rule>
+          <style-rule element='table'>
+            <format attr='background-color' value='#00000000' />
+          </style-rule>
           <style-rule element='refline'>
             <format attr='fill-above' id='refline0' value='#00000000' />
             <format attr='fill-below' id='refline0' value='#00000000' />
@@ -6764,7 +7055,7 @@
                             <zone h='26000' id='85' is-fixed='true' type-v2='layout-basic' w='31260' x='67302' y='40357'>
                               <zone h='26000' id='86' param='vert' type-v2='layout-flow' w='31260' x='67302' y='40357'>
                                 <zone h='25989' id='104' name='Donor Activity Heat Map' w='31260' x='67302' y='40357'>
-                                  <layout-cache cell-count-h='19' non-cell-size-h='63' type-h='cell' type-w='fixed' />
+                                  <layout-cache type-h='cell' type-w='fixed' />
                                   <zone-style>
                                     <format attr='border-color' value='#000000' />
                                     <format attr='border-style' value='none' />
@@ -6990,8 +7281,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='2800' minheight='2800' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='175' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98858' id='174' param='vert' type-v2='layout-flow' w='99000' x='500' y='571'>
+            <zone h='100000' id='177' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98858' id='176' param='vert' type-v2='layout-flow' w='99000' x='500' y='571'>
                 <zone fixed-size='79' h='6217' id='91' is-centered='0' is-fixed='true' is-scaled='1' param='/Users/aleemkhan/Desktop/Screenshot 2024-09-05 at 4.33.33 PM.png' type-v2='bitmap' w='6000' x='2751' y='3141'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -7218,52 +7509,13 @@
       <size maxheight='800' maxwidth='1000' minheight='800' minwidth='1000' />
       <zones>
         <zone friendly-name='Base' h='100000' id='4' type-v2='layout-basic' w='100000' x='0' y='0'>
-          <zone h='98000' id='84' param='horz' type-v2='layout-flow' w='98400' x='800' y='1000'>
-            <zone h='98000' id='82' type-v2='layout-basic' w='98400' x='800' y='1000'>
-              <zone h='91875' id='34' param='horz' type-v2='layout-flow' w='98400' x='800' y='7125'>
-                <zone h='91875' id='14' type-v2='layout-basic' w='98400' x='800' y='7125'>
-                  <zone h='49686' id='3' param='vert' type-v2='layout-flow' w='98400' x='800' y='7125'>
-                    <zone h='49686' id='6' param='horz' type-v2='layout-flow' w='98400' x='800' y='7125'>
-                      <zone fixed-size='682' h='49686' id='7' is-fixed='true' name='Donations Over Time' show-caption='true' w='98400' x='800' y='7125'>
-                        <layout-cache minheight='198' minwidth='133' type-h='scalable' type-w='scalable' />
-                        <zone-style>
-                          <format attr='border-color' value='#000000' />
-                          <format attr='border-style' value='none' />
-                          <format attr='border-width' value='0' />
-                          <format attr='margin' value='4' />
-                        </zone-style>
-                      </zone>
-                      <zone-style>
-                        <format attr='border-color' value='#000000' />
-                        <format attr='border-style' value='none' />
-                        <format attr='border-width' value='0' />
-                        <format attr='background-color' value='#f3f2f1' />
-                      </zone-style>
-                    </zone>
-                  </zone>
-                  <zone h='38441' id='12' param='horz' type-v2='layout-flow' w='98400' x='800' y='60559'>
-                    <zone h='38441' id='37' type-v2='empty' w='23700' x='800' y='60559'>
-                      <zone-style>
-                        <format attr='border-color' value='#000000' />
-                        <format attr='border-style' value='none' />
-                        <format attr='border-width' value='0' />
-                        <format attr='margin' value='4' />
-                      </zone-style>
-                    </zone>
-                    <zone fixed-size='242' forceUpdate='true' h='38441' id='18' is-fixed='true' type-v2='text' w='25000' x='24500' y='60559'>
-                      <formatted-text>
-                        <run fontalignment='2'>On average, cash donations make up about 70% of all donations at any point in time.</run>
-                      </formatted-text>
-                      <zone-style>
-                        <format attr='border-color' value='#000000' />
-                        <format attr='border-style' value='none' />
-                        <format attr='border-width' value='0' />
-                        <format attr='margin' value='4' />
-                        <format attr='padding' value='31' />
-                      </zone-style>
-                    </zone>
-                    <zone fixed-size='489' h='38441' id='13' is-fixed='true' name='Donations Over Time (as % of Total Donations)' show-caption='true' w='49700' x='49500' y='60559'>
-                      <layout-cache minwidth='140' type-h='fixed' type-w='scalable' />
+          <zone h='98000' id='82' type-v2='layout-basic' w='98400' x='800' y='1000'>
+            <zone h='91875' id='34' param='horz' type-v2='layout-flow' w='98400' x='800' y='7125'>
+              <zone h='91875' id='14' type-v2='layout-basic' w='98400' x='800' y='7125'>
+                <zone h='49686' id='3' param='vert' type-v2='layout-flow' w='98400' x='800' y='7125'>
+                  <zone h='49686' id='6' param='horz' type-v2='layout-flow' w='98400' x='800' y='7125'>
+                    <zone fixed-size='682' h='49686' id='7' is-fixed='true' name='Donations Over Time' show-caption='true' show-title='false' w='98400' x='800' y='7125'>
+                      <layout-cache minheight='155' minwidth='133' type-h='scalable' type-w='scalable' />
                       <zone-style>
                         <format attr='border-color' value='#000000' />
                         <format attr='border-style' value='none' />
@@ -7278,7 +7530,9 @@
                       <format attr='background-color' value='#f3f2f1' />
                     </zone-style>
                   </zone>
-                  <zone h='3748' id='19' type-v2='empty' w='98400' x='800' y='56811'>
+                </zone>
+                <zone h='38442' id='12' param='horz' type-v2='layout-flow' w='98400' x='800' y='60558'>
+                  <zone h='38442' id='37' type-v2='empty' w='23700' x='800' y='60558'>
                     <zone-style>
                       <format attr='border-color' value='#000000' />
                       <format attr='border-style' value='none' />
@@ -7286,19 +7540,54 @@
                       <format attr='margin' value='4' />
                     </zone-style>
                   </zone>
+                  <zone fixed-size='242' forceUpdate='true' h='38442' id='18' is-fixed='true' type-v2='text' w='25000' x='24500' y='60558'>
+                    <formatted-text>
+                      <run fontcolor='#000000' fontname='Benton Sans Book'>On average, cash donations make up about 70% of all donations at any point in time. </run>
+                    </formatted-text>
+                    <zone-style>
+                      <format attr='border-color' value='#000000' />
+                      <format attr='border-style' value='none' />
+                      <format attr='border-width' value='0' />
+                      <format attr='margin' value='4' />
+                      <format attr='padding' value='31' />
+                    </zone-style>
+                  </zone>
+                  <zone fixed-size='489' h='38442' id='13' is-fixed='true' name='Donations Over Time (as % of Total Donations)' show-caption='true' w='49700' x='49500' y='60558'>
+                    <layout-cache minwidth='140' type-h='fixed' type-w='scalable' />
+                    <zone-style>
+                      <format attr='border-color' value='#000000' />
+                      <format attr='border-style' value='none' />
+                      <format attr='border-width' value='0' />
+                      <format attr='margin' value='4' />
+                    </zone-style>
+                  </zone>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='background-color' value='#f3f2f1' />
+                  </zone-style>
+                </zone>
+                <zone h='3747' id='19' type-v2='empty' w='98400' x='800' y='56811'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                  </zone-style>
                 </zone>
               </zone>
-              <zone forceUpdate='true' h='6125' id='36' type-v2='text' w='98400' x='800' y='1000'>
-                <formatted-text>
-                  <run bold='true' fontsize='14'>Donations by Donation Type</run>
-                </formatted-text>
-                <zone-style>
-                  <format attr='border-color' value='#000000' />
-                  <format attr='border-style' value='none' />
-                  <format attr='border-width' value='0' />
-                  <format attr='margin' value='4' />
-                </zone-style>
-              </zone>
+            </zone>
+            <zone forceUpdate='true' h='6125' id='36' type-v2='text' w='98400' x='800' y='1000'>
+              <formatted-text>
+                <run bold='true' fontsize='14'>Donation Breakdown</run>
+              </formatted-text>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='4' />
+              </zone-style>
             </zone>
           </zone>
           <zone-style>
@@ -7309,22 +7598,22 @@
             <format attr='background-color' value='#f3f2f1' />
           </zone-style>
         </zone>
-        <zone fixed-size='242' forceUpdate='true' h='16500' id='11' is-fixed='true' type-v2='text' w='19300' x='9400' y='12750'>
+        <zone fixed-size='242' forceUpdate='true' h='16500' id='11' is-fixed='true' type-v2='text' w='19300' x='25700' y='12750'>
           <formatted-text>
-            <run>Cash contributions consistenty outnumber all other donations types regardless of time. </run>
+            <run fontcolor='#000000' fontname='Benton Sans Book'>Cash contributions consistently outnumber all other donations types regardless of time. </run>
           </formatted-text>
         </zone>
-        <zone h='22125' id='85' name='Donations Over Time (as % of Total Donations)' pane-specification-id='0' param='[federated.07we6dr180747v10gveja160dayo].[none:DonationType:nk]' type-v2='color' w='17200' x='2300' y='65250' />
+        <zone h='22125' id='85' name='Donations Over Time (as % of Total Donations)' pane-specification-id='0' param='[federated.07we6dr180747v10gveja160dayo].[none:DonationType:nk]' type-v2='color' w='17200' x='3200' y='68000' />
       </zones>
       <devicelayouts>
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='850' minheight='850' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='81' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98000' id='80' param='vert' type-v2='layout-flow' w='98400' x='800' y='1000'>
+            <zone h='100000' id='87' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98000' id='86' param='vert' type-v2='layout-flow' w='98400' x='800' y='1000'>
                 <zone forceUpdate='true' h='6125' id='36' type-v2='text' w='98400' x='800' y='1000'>
                   <formatted-text>
-                    <run bold='true' fontsize='14'>Donations by Donation Type</run>
+                    <run bold='true' fontsize='14'>Donation Breakdown</run>
                   </formatted-text>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -7346,7 +7635,7 @@
                 </zone>
                 <zone fixed-size='242' forceUpdate='true' h='16500' id='11' type-v2='text' w='19300' x='9400' y='12750'>
                   <formatted-text>
-                    <run>Cash contributions consistenty outnumber all other donations types regardless of time. </run>
+                    <run fontcolor='#000000' fontname='Benton Sans Book'>Cash contributions consistently outnumber all other donations types regardless of time. </run>
                   </formatted-text>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -7358,7 +7647,7 @@
                 </zone>
                 <zone fixed-size='242' forceUpdate='true' h='38441' id='18' type-v2='text' w='25000' x='24500' y='60559'>
                   <formatted-text>
-                    <run fontalignment='2'>On average, cash donations make up about 70% of all donations at any point in time.</run>
+                    <run fontcolor='#000000' fontname='Benton Sans Book'>On average, cash donations make up about 70% of all donations at any point in time. </run>
                   </formatted-text>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -7370,6 +7659,15 @@
                 </zone>
                 <zone fixed-size='280' h='38441' id='13' is-fixed='true' name='Donations Over Time (as % of Total Donations)' show-caption='true' w='49700' x='49500' y='60559'>
                   <layout-cache minwidth='140' type-h='fixed' type-w='scalable' />
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone h='22125' id='85' name='Donations Over Time (as % of Total Donations)' pane-specification-id='0' param='[federated.07we6dr180747v10gveja160dayo].[none:DonationType:nk]' type-v2='color' w='17200' x='2300' y='65250'>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -7397,13 +7695,21 @@
       <size maxheight='800' maxwidth='1000' minheight='800' minwidth='1000' />
       <zones>
         <zone h='100000' id='4' type-v2='layout-basic' w='100000' x='0' y='0'>
-          <zone h='98000' id='12' param='horz' type-v2='layout-flow' w='98400' x='800' y='1000'>
-            <zone h='98000' id='10' type-v2='layout-basic' w='98400' x='800' y='1000'>
-              <zone h='90750' id='3' layout-strategy-id='distribute-evenly' param='vert' type-v2='layout-flow' w='98400' x='800' y='8250'>
-                <zone h='90750' id='5' param='horz' type-v2='layout-flow' w='98400' x='800' y='8250'>
-                  <zone h='90750' id='7' layout-strategy-id='distribute-evenly' param='vert' type-v2='layout-flow' w='98400' x='800' y='8250'>
-                    <zone h='45375' id='9' name='Donations By Donor Type vs Time' w='98400' x='800' y='8250'>
-                      <layout-cache minheight='173' minwidth='133' type-h='scalable' type-w='scalable' />
+          <zone h='98000' id='10' type-v2='layout-basic' w='98400' x='800' y='1000'>
+            <zone h='90750' id='3' layout-strategy-id='distribute-evenly' param='vert' type-v2='layout-flow' w='98400' x='800' y='8250'>
+              <zone h='90750' id='5' param='horz' type-v2='layout-flow' w='98400' x='800' y='8250'>
+                <zone h='90750' id='7' layout-strategy-id='distribute-evenly' param='vert' type-v2='layout-flow' w='98400' x='800' y='8250'>
+                  <zone h='45375' id='9' name='Donations By Donor Type vs Time' show-title='false' w='98400' x='800' y='8250'>
+                    <layout-cache minheight='173' minwidth='133' type-h='scalable' type-w='scalable' />
+                    <zone-style>
+                      <format attr='border-color' value='#000000' />
+                      <format attr='border-style' value='none' />
+                      <format attr='border-width' value='0' />
+                      <format attr='margin' value='4' />
+                    </zone-style>
+                  </zone>
+                  <zone h='45375' id='14' param='horz' type-v2='layout-flow' w='98400' x='800' y='53625'>
+                    <zone fixed-size='144' h='44375' id='17' is-fixed='true' type-v2='empty' w='15200' x='1200' y='54125'>
                       <zone-style>
                         <format attr='border-color' value='#000000' />
                         <format attr='border-style' value='none' />
@@ -7411,36 +7717,11 @@
                         <format attr='margin' value='4' />
                       </zone-style>
                     </zone>
-                    <zone h='45375' id='14' param='horz' type-v2='layout-flow' w='98400' x='800' y='53625'>
-                      <zone fixed-size='144' h='44375' id='17' is-fixed='true' type-v2='empty' w='15200' x='1200' y='54125'>
-                        <zone-style>
-                          <format attr='border-color' value='#000000' />
-                          <format attr='border-style' value='none' />
-                          <format attr='border-width' value='0' />
-                          <format attr='margin' value='4' />
-                        </zone-style>
-                      </zone>
-                      <zone forceUpdate='true' h='44375' id='16' type-v2='text' w='24000' x='16400' y='54125'>
-                        <formatted-text>
-                          <run fontalignment='2'>Regardless of time, individuals contirbute the most to political donaitons. Companies, public funds and trade unions contribute the roughly the same amount (on average). 
-</run>
-                        </formatted-text>
-                        <zone-style>
-                          <format attr='border-color' value='#000000' />
-                          <format attr='border-style' value='none' />
-                          <format attr='border-width' value='0' />
-                          <format attr='margin' value='4' />
-                        </zone-style>
-                      </zone>
-                      <zone fixed-size='576' h='44375' id='15' is-fixed='true' name='Donations By Donor Type' w='58400' x='40400' y='54125'>
-                        <layout-cache minwidth='133' type-h='fixed' type-w='scalable' />
-                        <zone-style>
-                          <format attr='border-color' value='#000000' />
-                          <format attr='border-style' value='none' />
-                          <format attr='border-width' value='0' />
-                          <format attr='margin' value='4' />
-                        </zone-style>
-                      </zone>
+                    <zone forceUpdate='true' h='44375' id='16' type-v2='text' w='24000' x='16400' y='54125'>
+                      <formatted-text>
+                        <run fontcolor='#000000' fontname='Benton Sans Book'>Regardless of time, individuals contribute the most political donations. Whereas companies, public funds and trade unions contribute the roughly the same amount (on average). </run>
+                        <run>Æ&#10;</run>
+                      </formatted-text>
                       <zone-style>
                         <format attr='border-color' value='#000000' />
                         <format attr='border-style' value='none' />
@@ -7448,27 +7729,42 @@
                         <format attr='margin' value='4' />
                       </zone-style>
                     </zone>
+                    <zone fixed-size='576' h='44375' id='15' is-fixed='true' name='Donations By Donor Type' w='58400' x='40400' y='54125'>
+                      <layout-cache minwidth='140' type-h='fixed' type-w='scalable' />
+                      <zone-style>
+                        <format attr='border-color' value='#000000' />
+                        <format attr='border-style' value='none' />
+                        <format attr='border-width' value='0' />
+                        <format attr='margin' value='4' />
+                      </zone-style>
+                    </zone>
+                    <zone-style>
+                      <format attr='border-color' value='#000000' />
+                      <format attr='border-style' value='none' />
+                      <format attr='border-width' value='0' />
+                      <format attr='margin' value='4' />
+                    </zone-style>
                   </zone>
                 </zone>
-                <zone-style>
-                  <format attr='border-color' value='#000000' />
-                  <format attr='border-style' value='none' />
-                  <format attr='border-width' value='0' />
-                  <format attr='background-color' value='#f3f2f1' />
-                </zone-style>
               </zone>
-              <zone forceUpdate='true' h='7000' id='8' type-v2='text' w='98400' x='800' y='1000'>
-                <formatted-text>
-                  <run bold='true' fontsize='14'>Donations by Donor Type</run>
-                </formatted-text>
-                <zone-style>
-                  <format attr='border-color' value='#000000' />
-                  <format attr='border-style' value='none' />
-                  <format attr='border-width' value='0' />
-                  <format attr='margin' value='4' />
-                  <format attr='background-color' value='#f3f2f1' />
-                </zone-style>
-              </zone>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='background-color' value='#f3f2f1' />
+              </zone-style>
+            </zone>
+            <zone forceUpdate='true' h='7000' id='8' type-v2='text' w='98400' x='800' y='1000'>
+              <formatted-text>
+                <run bold='true' fontsize='14'>Donations by Donor Type</run>
+              </formatted-text>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='4' />
+                <format attr='background-color' value='#f3f2f1' />
+              </zone-style>
             </zone>
           </zone>
           <zone-style>
@@ -7479,10 +7775,10 @@
             <format attr='background-color' value='#f3f2f1' />
           </zone-style>
         </zone>
-        <zone h='34750' id='13' name='Donations By Donor Type vs Time' pane-specification-id='0' param='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' type-v2='color' w='12500' x='86400' y='4625' />
-        <zone h='9625' id='18' type-v2='text' w='31900' x='16400' y='16500'>
+        <zone h='34750' id='13' name='Donations By Donor Type vs Time' pane-specification-id='0' param='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' type-v2='color' w='12500' x='86400' y='1125' />
+        <zone forceUpdate='true' h='9625' id='18' type-v2='text' w='40800' x='16400' y='16500'>
           <formatted-text>
-            <run>Individuals consistently donate the most money to political parties and companies second.</run>
+            <run fontcolor='#000000' fontname='Benton Sans Book'>Individuals consistently donate the most to political parties. </run>
           </formatted-text>
         </zone>
       </zones>
@@ -7490,8 +7786,8 @@
         <devicelayout auto-generated='true' name='Phone'>
           <size maxheight='850' minheight='850' sizing-mode='vscroll' />
           <zones>
-            <zone h='100000' id='62' type-v2='layout-basic' w='100000' x='0' y='0'>
-              <zone h='98000' id='61' param='vert' type-v2='layout-flow' w='98400' x='800' y='1000'>
+            <zone h='100000' id='64' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98000' id='63' param='vert' type-v2='layout-flow' w='98400' x='800' y='1000'>
                 <zone forceUpdate='true' h='7000' id='8' type-v2='text' w='98400' x='800' y='1000'>
                   <formatted-text>
                     <run bold='true' fontsize='14'>Donations by Donor Type</run>
@@ -7524,9 +7820,9 @@
                     <format attr='padding' value='0' />
                   </zone-style>
                 </zone>
-                <zone h='9625' id='18' type-v2='text' w='31900' x='16400' y='16500'>
+                <zone forceUpdate='true' h='9625' id='18' type-v2='text' w='31900' x='16400' y='16500'>
                   <formatted-text>
-                    <run>Individuals consistently donate the most money to political parties and companies second.</run>
+                    <run fontcolor='#000000' fontname='Benton Sans Book'>Individuals consistently donate the most to political parties. </run>
                   </formatted-text>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -7538,8 +7834,8 @@
                 </zone>
                 <zone forceUpdate='true' h='44375' id='16' type-v2='text' w='24000' x='16400' y='54125'>
                   <formatted-text>
-                    <run fontalignment='2'>Regardless of time, individuals contirbute the most to political donaitons. Companies, public funds and trade unions contribute the roughly the same amount (on average). 
-</run>
+                    <run fontcolor='#000000' fontname='Benton Sans Book'>Regardless of time, individuals contribute the most political donations. Whereas companies, public funds and trade unions contribute the roughly the same amount (on average). </run>
+                    <run>Æ&#10;</run>
                   </formatted-text>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -7572,6 +7868,199 @@
         </devicelayout>
       </devicelayouts>
       <simple-id uuid='{959428D6-6BB4-4805-994E-B059CDB95F07}' />
+    </dashboard>
+    <dashboard _.fcp.AccessibleZoneTabOrder.true...enable-sort-zone-taborder='true' name='Page 3'>
+      <style />
+      <size maxheight='800' maxwidth='1000' minheight='800' minwidth='1000' />
+      <zones>
+        <zone h='100000' id='4' type-v2='layout-basic' w='100000' x='0' y='0'>
+          <zone h='98000' id='72' param='horz' type-v2='layout-flow' w='98400' x='800' y='1000'>
+            <zone h='98000' id='10' type-v2='layout-basic' w='98400' x='800' y='1000'>
+              <zone h='90750' id='3' layout-strategy-id='distribute-evenly' param='vert' type-v2='layout-flow' w='98400' x='800' y='8250'>
+                <zone h='90750' id='5' param='horz' type-v2='layout-flow' w='98400' x='800' y='8250'>
+                  <zone h='90750' id='7' layout-strategy-id='distribute-evenly' param='vert' type-v2='layout-flow' w='98400' x='800' y='8250'>
+                    <zone h='45375' id='69' param='horz' type-v2='layout-flow' w='98400' x='800' y='8250'>
+                      <zone forceUpdate='true' h='40375' id='68' type-v2='text' w='35700' x='2800' y='10750'>
+                        <formatted-text>
+                          <run fontcolor='#000000' fontname='Benton Sans Book'>There has consistently been more donor activity during the end of each quarter (March, June, September and December).</run>
+                        </formatted-text>
+                        <zone-style>
+                          <format attr='border-color' value='#000000' />
+                          <format attr='border-style' value='none' />
+                          <format attr='border-width' value='0' />
+                          <format attr='margin' value='4' />
+                        </zone-style>
+                      </zone>
+                      <zone fixed-size='579' h='40375' id='65' is-fixed='true' name='Donor Activity Heat Map' w='58700' x='38500' y='10750'>
+                        <layout-cache fixed-size-h='444' type-h='fixed' type-w='cell' />
+                        <zone-style>
+                          <format attr='border-color' value='#000000' />
+                          <format attr='border-style' value='none' />
+                          <format attr='border-width' value='0' />
+                          <format attr='margin' value='4' />
+                        </zone-style>
+                      </zone>
+                      <zone-style>
+                        <format attr='border-color' value='#000000' />
+                        <format attr='border-style' value='none' />
+                        <format attr='border-width' value='0' />
+                        <format attr='margin' value='10' />
+                        <format attr='padding' value='10' />
+                      </zone-style>
+                    </zone>
+                    <zone h='45375' id='14' param='horz' type-v2='layout-flow' w='98400' x='800' y='53625'>
+                      <zone h='40375' id='70' name='Donation Frequency by Donor Type' w='74400' x='2800' y='56125'>
+                        <layout-cache minwidth='226' type-h='fixed' type-w='scalable' />
+                        <zone-style>
+                          <format attr='border-color' value='#000000' />
+                          <format attr='border-style' value='none' />
+                          <format attr='border-width' value='0' />
+                          <format attr='margin' value='4' />
+                        </zone-style>
+                      </zone>
+                      <zone fixed-size='135' forceUpdate='true' h='40375' id='16' is-fixed='true' type-v2='text' w='14300' x='77200' y='56125'>
+                        <formatted-text>
+                          <run fontcolor='#000000' fontname='Benton Sans Book'>Donations from all donor groups have seen a steady decline since 2017 and all groups except public fund donors have donated less than they did in 2001. </run>
+                        </formatted-text>
+                        <zone-style>
+                          <format attr='border-color' value='#000000' />
+                          <format attr='border-style' value='none' />
+                          <format attr='border-width' value='0' />
+                          <format attr='margin' value='4' />
+                        </zone-style>
+                      </zone>
+                      <zone fixed-size='49' h='40375' id='17' is-fixed='true' type-v2='empty' w='5700' x='91500' y='56125'>
+                        <zone-style>
+                          <format attr='border-color' value='#000000' />
+                          <format attr='border-style' value='none' />
+                          <format attr='border-width' value='0' />
+                          <format attr='margin' value='4' />
+                        </zone-style>
+                      </zone>
+                      <zone-style>
+                        <format attr='border-color' value='#000000' />
+                        <format attr='border-style' value='none' />
+                        <format attr='border-width' value='0' />
+                        <format attr='margin' value='10' />
+                        <format attr='padding' value='10' />
+                      </zone-style>
+                    </zone>
+                  </zone>
+                </zone>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='background-color' value='#f3f2f1' />
+                </zone-style>
+              </zone>
+              <zone forceUpdate='true' h='7000' id='8' type-v2='text' w='98400' x='800' y='1000'>
+                <formatted-text>
+                  <run bold='true' fontsize='14'>Donor Activity</run>
+                </formatted-text>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                  <format attr='background-color' value='#f3f2f1' />
+                </zone-style>
+              </zone>
+            </zone>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='8' />
+            <format attr='background-color' value='#f3f2f1' />
+          </zone-style>
+        </zone>
+      </zones>
+      <devicelayouts>
+        <devicelayout auto-generated='true' name='Phone'>
+          <size maxheight='850' minheight='850' sizing-mode='vscroll' />
+          <zones>
+            <zone h='100000' id='64' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98000' id='63' param='vert' type-v2='layout-flow' w='98400' x='800' y='1000'>
+                <zone forceUpdate='true' h='7000' id='8' type-v2='text' w='98400' x='800' y='1000'>
+                  <formatted-text>
+                    <run bold='true' fontsize='14'>Donor Activity</run>
+                  </formatted-text>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                    <format attr='background-color' value='#f3f2f1' />
+                  </zone-style>
+                </zone>
+                <zone forceUpdate='true' h='44375' id='16' type-v2='text' w='24000' x='16400' y='54125'>
+                  <formatted-text>
+                    <run fontcolor='#000000' fontname='Benton Sans Book'>Donations from all donor groups have seen a steady decline since 2017 and all groups except public fund donors have donated less than they did in 2001. </run>
+                  </formatted-text>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+              </zone>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='8' />
+                <format attr='background-color' value='#f3f2f1' />
+              </zone-style>
+            </zone>
+          </zones>
+        </devicelayout>
+      </devicelayouts>
+      <simple-id uuid='{8A75A9C3-C5AA-4815-9433-014D2257BB17}' />
+    </dashboard>
+    <dashboard name='Story 1' type='storyboard'>
+      <style />
+      <size maxheight='964' maxwidth='1016' minheight='964' minwidth='1016' />
+      <zones>
+        <zone h='100000' id='2' type-v2='layout-basic' w='100000' x='0' y='0'>
+          <zone h='98340' id='1' param='vert' removable='false' type-v2='layout-flow' w='98426' x='787' y='830'>
+            <zone h='3423' id='3' type-v2='title' w='98426' x='787' y='830' />
+            <zone h='10477' id='4' is-fixed='true' paired-zone-id='5' removable='false' type-v2='flipboard-nav' w='98426' x='787' y='4253' />
+            <zone h='84440' id='5' paired-zone-id='4' removable='false' type-v2='flipboard' w='98426' x='787' y='14730'>
+              <flipboard active-id='3' nav-type='caption' show-nav-arrows='true'>
+                <story-points>
+                  <story-point caption='Donation Beakdown' captured-sheet='Page 1' id='2' />
+                  <story-point caption='Donor Types' captured-sheet='Page 2' id='3'>
+                    <currentDeltas>
+                      <dashboard name='Page 2'>
+                        <zone id='16'>
+                          <formatted-text>
+                            <run fontalignment='2'>Regardless of time, individuals contirbute the most to political donations. Companies, public funds and trade unions contribute the roughly the same amount (on average). 
+</run>
+                          </formatted-text>
+                        </zone>
+                      </dashboard>
+                    </currentDeltas>
+                    <capturedDeltas />
+                  </story-point>
+                  <story-point caption='Donor Activity' captured-sheet='Page 3' id='5' />
+                </story-points>
+              </flipboard>
+            </zone>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='8' />
+          </zone-style>
+        </zone>
+      </zones>
+      <simple-id uuid='{54ECAB57-921C-4742-9B84-8F4B9C22BD72}' />
     </dashboard>
   </dashboards>
   <windows source-height='30'>
@@ -7618,8 +8107,36 @@
             <card type='title' />
           </strip>
         </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='2' param='[federated.07we6dr180747v10gveja160dayo].[none:DonationType:nk]' type='color' />
+          </strip>
+        </edge>
       </cards>
       <simple-id uuid='{A8DC6EB7-05D3-4EF7-BA8C-B66ECE9D98CA}' />
+    </window>
+    <window class='worksheet' name='Donations Over Time Moving Average' tab-color='#f66273'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{2AEDD0E9-1EBD-410E-B194-5EFE3EC2974F}' />
     </window>
     <window class='worksheet' name='Donations Over Time (as % of Total Donations)' tab-color='#f66273'>
       <cards>
@@ -8403,7 +8920,7 @@
           <zoom type='entire-view' />
         </viewpoint>
       </viewpoints>
-      <active id='27' />
+      <active id='7' />
       <grid grid-size='30' />
       <simple-id uuid='{F95123A6-FA9D-4AF5-A5A8-DD20642C0E37}' />
     </window>
@@ -8416,7 +8933,7 @@
           <zoom type='entire-view' />
         </viewpoint>
       </viewpoints>
-      <active id='-1' />
+      <active id='11' />
       <simple-id uuid='{FA68886C-3E25-4268-BAAD-40A89D5E9502}' />
     </window>
     <window class='dashboard' name='Page 2'>
@@ -8428,8 +8945,25 @@
           <zoom type='entire-view' />
         </viewpoint>
       </viewpoints>
-      <active id='-1' />
+      <active id='16' />
       <simple-id uuid='{7C71B0F2-84BF-4375-91C1-A83278133D39}' />
+    </window>
+    <window class='dashboard' name='Page 3'>
+      <viewpoints>
+        <viewpoint name='Donation Frequency by Donor Type'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='Donor Activity Heat Map'>
+          <zoom type='entire-view' />
+        </viewpoint>
+      </viewpoints>
+      <active id='10' />
+      <simple-id uuid='{10037858-A320-4E4B-B6FC-2C2531A5691D}' />
+    </window>
+    <window class='dashboard' name='Story 1'>
+      <viewpoints />
+      <active id='-1' />
+      <simple-id uuid='{67C69F48-6793-4755-9531-23DD8584D5FF}' />
     </window>
   </windows>
 </workbook>
