@@ -3947,9 +3947,20 @@
         <datasource caption='output' name='federated.07we6dr180747v10gveja160dayo' />
       </datasources>
       <datasource-dependencies datasource='federated.07we6dr180747v10gveja160dayo'>
+        <column caption='Donor Status' datatype='string' name='[DonorStatus]' role='dimension' type='nominal' />
         <column caption='Received Date' datatype='date' name='[ReceivedDate]' role='dimension' type='ordinal' />
+        <column-instance column='[DonorStatus]' derivation='None' name='[none:DonorStatus:nk]' pivot='key' type='nominal' />
         <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
       </datasource-dependencies>
+      <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+        <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+          <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+          <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+          <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+          <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+        </groupfilter>
+        <target field='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' />
+      </filter>
       <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]' context='true'>
         <groupfilter expression='NOT ISNULL([ReceivedDate])' function='filter' user:ui-marker='filter-by'>
           <groupfilter function='level-members' level='[none:ReceivedDate:ok]' user:ui-enumeration='all' user:ui-marker='enumerate' />
@@ -4030,12 +4041,9 @@
               <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
             </groupfilter>
           </filter>
-          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]'>
-            <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-          </filter>
           <slices>
-            <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (RFM Customer Segment)]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (YEAR(Received Date),MONTH(Received Date))]</column>
           </slices>
@@ -4107,12 +4115,9 @@
               <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
             </groupfilter>
           </filter>
-          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]'>
-            <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-          </filter>
           <slices>
-            <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (RFM Customer Segment)]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (YEAR(Received Date),MONTH(Received Date))]</column>
           </slices>
@@ -4231,14 +4236,6 @@
             </column-instance>
             <column-instance column='[ReceivedDate]' derivation='Year-Trunc' name='[tyr:ReceivedDate:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
-          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]'>
-            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
-              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
-              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
-              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
-              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
-            </groupfilter>
-          </filter>
           <manual-sort column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' direction='ASC'>
             <dictionary>
               <bucket>&quot;Individual&quot;</bucket>
@@ -4248,8 +4245,8 @@
             </dictionary>
           </manual-sort>
           <slices>
-            <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -4366,16 +4363,9 @@
               <groupfilter function='level-members' level='[RFM_Customer_Segment]' />
             </groupfilter>
           </filter>
-          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]'>
-            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
-              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
-              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
-              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
-              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
-            </groupfilter>
-          </filter>
           <filter class='quantitative' column='[federated.07we6dr180747v10gveja160dayo].[pcto:sum:Calculation_1848586965291671552:qk:2]' included-values='non-null' />
           <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Tooltip (Donor Id)]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Tooltip (Donor Id,RFM Customer Segment)]</column>
@@ -4383,7 +4373,6 @@
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (RFM Customer Segment)]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[pcto:sum:Calculation_1848586965291671552:qk:2]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (YEAR(Received Date),MONTH(Received Date))]</column>
-            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -4474,19 +4463,11 @@
               <groupfilter function='level-members' level='[RFM_Customer_Segment]' />
             </groupfilter>
           </filter>
-          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]'>
-            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
-              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
-              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
-              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
-              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
-            </groupfilter>
-          </filter>
           <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Tooltip (Donor Id)]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Tooltip (Donor Id,RFM Customer Segment)]</column>
-            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
           </slices>
           <aggregation value='true' />
         </view>
@@ -4544,9 +4525,11 @@
             <column caption='Election Group' datatype='date' name='[Calculation_4812588841739190273]' role='dimension' type='quantitative'>
               <calculation class='tableau' formula='IF  [ReportedDate]&lt;= #2001-06-07# THEN DATE(#2001-06-07#)&#10;ELSEIF [ReportedDate]&lt;= #2005-05-05# THEN DATE(#2005-05-05#)&#10;ELSEIF [ReportedDate]&lt;= #2010-05-06# THEN DATE(#2010-05-06#)&#10;ELSEIF [ReportedDate]&lt;= #2015-05-07# THEN DATE(#2015-05-07#)&#10;ELSEIF [ReportedDate]&lt;= #2017-06-08# THEN DATE(#2017-06-08#)&#10;ELSEIF [ReportedDate]&lt;= #2019-12-12# THEN DATE(#2019-12-12#)&#10;ELSEIF [ReportedDate]&lt;= #2024-07-04# THEN DATE(#2024-07-04#)&#10;ELSE NULL&#10;&#10;END' />
             </column>
+            <column caption='Donor Status' datatype='string' name='[DonorStatus]' role='dimension' type='nominal' />
             <column caption='Received Date' datatype='date' name='[ReceivedDate]' role='dimension' type='ordinal' />
             <column caption='Reported Date' datatype='date' name='[ReportedDate]' role='dimension' type='ordinal' />
             <column datatype='string' name='[Value]' role='dimension' type='nominal' />
+            <column-instance column='[DonorStatus]' derivation='None' name='[none:DonorStatus:nk]' pivot='key' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[Calculation_1848586965291671552]' derivation='Sum' name='[pcdf:sum:Calculation_1848586965291671552:ok]' pivot='key' type='ordinal'>
               <table-calc diff-options='Relative' ordering-type='Columns' type='PctDiff'>
@@ -4559,6 +4542,7 @@
             <column-instance column='[Calculation_4812588841739190273]' derivation='Year-Trunc' name='[tyr:Calculation_4812588841739190273:ok]' pivot='key' type='ordinal' />
           </datasource-dependencies>
           <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
           </slices>
           <aggregation value='true' />
@@ -4587,9 +4571,11 @@
             <column caption='num_value' datatype='real' name='[Calculation_1848586965291671552]' role='measure' type='quantitative'>
               <calculation class='tableau' formula='FLOAT(REPLACE([Value], &apos;£&apos;, &apos;&apos;))' />
             </column>
+            <column caption='Donor Status' datatype='string' name='[DonorStatus]' role='dimension' type='nominal' />
             <column caption='Received Date' datatype='date' name='[ReceivedDate]' role='dimension' type='ordinal' />
             <column caption='Regulated Entity Name' datatype='string' name='[RegulatedEntityName]' role='dimension' type='nominal' />
             <column datatype='string' name='[Value]' role='dimension' type='nominal' />
+            <column-instance column='[DonorStatus]' derivation='None' name='[none:DonorStatus:nk]' pivot='key' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[RegulatedEntityName]' derivation='None' name='[none:RegulatedEntityName:nk]' pivot='key' type='nominal' />
             <column-instance column='[Calculation_1848586965291671552]' derivation='Sum' name='[sum:Calculation_1848586965291671552:qk]' pivot='key' type='quantitative' />
@@ -4618,6 +4604,7 @@
             <shelf-sort-v2 dimension-to-sort='[federated.07we6dr180747v10gveja160dayo].[none:RegulatedEntityName:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.07we6dr180747v10gveja160dayo].[sum:Calculation_1848586965291671552:qk]' shelf='rows' />
           </shelf-sorts>
           <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:RegulatedEntityName:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Exclusions (Regulated Entity Name,YEAR(Received Date))]</column>
@@ -4698,11 +4685,13 @@
             </column>
             <column caption='Donation Type' datatype='string' name='[DonationType]' role='dimension' type='nominal' />
             <column caption='Donor Id' datatype='integer' name='[DonorId]' role='dimension' type='ordinal' />
+            <column caption='Donor Status' datatype='string' name='[DonorStatus]' role='dimension' type='nominal' />
             <column caption='RFM Customer Segment' datatype='string' name='[RFM_Customer_Segment]' role='dimension' type='nominal' />
             <column caption='Received Date' datatype='date' name='[ReceivedDate]' role='dimension' type='ordinal' />
             <column datatype='string' name='[Value]' role='dimension' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='Month' name='[mn:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[DonationType]' derivation='None' name='[none:DonationType:nk]' pivot='key' type='nominal' />
+            <column-instance column='[DonorStatus]' derivation='None' name='[none:DonorStatus:nk]' pivot='key' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[Calculation_1848586965291671552]' derivation='Sum' name='[sum:Calculation_1848586965291671552:qk]' pivot='key' type='quantitative' />
             <column-instance column='[ReceivedDate]' derivation='Quarter-Trunc' name='[tqr:ReceivedDate:qk]' pivot='key' type='quantitative' />
@@ -4734,6 +4723,7 @@
             </groupfilter>
           </filter>
           <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Tooltip (Donor Id)]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Tooltip (Donor Id,RFM Customer Segment)]</column>
@@ -4851,9 +4841,11 @@
               <calculation class='tableau' formula='FLOAT(REPLACE([Value], &apos;£&apos;, &apos;&apos;))' />
             </column>
             <column caption='Donation Type' datatype='string' name='[DonationType]' role='dimension' type='nominal' />
+            <column caption='Donor Status' datatype='string' name='[DonorStatus]' role='dimension' type='nominal' />
             <column caption='Received Date' datatype='date' name='[ReceivedDate]' role='dimension' type='ordinal' />
             <column datatype='string' name='[Value]' role='dimension' type='nominal' />
             <column-instance column='[DonationType]' derivation='None' name='[none:DonationType:nk]' pivot='key' type='nominal' />
+            <column-instance column='[DonorStatus]' derivation='None' name='[none:DonorStatus:nk]' pivot='key' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[Calculation_1848586965291671552]' derivation='Sum' name='[pcto:sum:Calculation_1848586965291671552:qk:2]' pivot='key' type='quantitative'>
               <table-calc ordering-type='Columns' type='PctTotal' />
@@ -4864,6 +4856,7 @@
             <column-instance column='[ReceivedDate]' derivation='Year-Trunc' name='[tyr:ReceivedDate:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
           <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
           </slices>
           <aggregation value='true' />
@@ -4936,10 +4929,12 @@
             </column>
             <column caption='Donation Type' datatype='string' name='[DonationType]' role='dimension' type='nominal' />
             <column caption='Donor Id' datatype='integer' name='[DonorId]' role='dimension' type='ordinal' />
+            <column caption='Donor Status' datatype='string' name='[DonorStatus]' role='dimension' type='nominal' />
             <column caption='RFM Customer Segment' datatype='string' name='[RFM_Customer_Segment]' role='dimension' type='nominal' />
             <column caption='Received Date' datatype='date' name='[ReceivedDate]' role='dimension' type='ordinal' />
             <column datatype='string' name='[Value]' role='dimension' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='Month' name='[mn:ReceivedDate:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[DonorStatus]' derivation='None' name='[none:DonorStatus:nk]' pivot='key' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[ReceivedDate]' derivation='Month-Trunc' name='[tmn:ReceivedDate:qk]' pivot='key' type='quantitative' />
             <column-instance column='[ReceivedDate]' derivation='Year-Trunc' name='[tyr:ReceivedDate:ok]' pivot='key' type='ordinal' />
@@ -4973,6 +4968,7 @@
             </groupfilter>
           </filter>
           <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Tooltip (Donor Id)]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Tooltip (Donor Id,RFM Customer Segment)]</column>
@@ -5099,6 +5095,7 @@
             <shelf-sort-v2 dimension-to-sort='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.07we6dr180747v10gveja160dayo].[sum:Monetary:qk]' shelf='rows' />
           </shelf-sorts>
           <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (RFM Customer Segment)]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[sum:Monetary:qk]</column>
@@ -5109,6 +5106,22 @@
         <style>
           <style-rule element='axis'>
             <format attr='display' class='0' field='[federated.07we6dr180747v10gveja160dayo].[sum:Monetary:qk]' scope='cols' value='false' />
+          </style-rule>
+          <style-rule element='header'>
+            <format attr='band-color' scope='cols' value='#00000000' />
+            <format attr='background-color' scope='rows' value='#f3f2f1' />
+            <format attr='background-color' data-class='subtotal' scope='rows' value='#f3f2f1' />
+            <format attr='band-color' scope='rows' value='#f3f2f1' />
+          </style-rule>
+          <style-rule element='pane'>
+            <format attr='band-color' scope='cols' value='#00000000' />
+            <format attr='background-color' data-class='subtotal' scope='rows' value='#f3f2f1' />
+            <format attr='band-color' scope='rows' value='#f3f2f1' />
+          </style-rule>
+          <style-rule element='table'>
+            <format attr='band-size' scope='cols' value='1' />
+            <format attr='band-size' scope='rows' value='1' />
+            <format attr='background-color' value='#00000000' />
           </style-rule>
           <style-rule element='gridline'>
             <format attr='stroke-size' value='0' />
@@ -5146,6 +5159,7 @@
             <column caption='Received Date' datatype='date' name='[ReceivedDate]' role='dimension' type='ordinal' />
             <_.fcp.ObjectModelTableType.true...column caption='Donations accepted by political parties.csv' datatype='table' name='[__tableau_internal_object_id__].[Donations accepted by political parties.csv_7ED980E6D3784B17A78E4708367A5A71]' role='measure' type='quantitative' />
             <column-instance column='[ReceivedDate]' derivation='Month' name='[mn:ReceivedDate:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[DonorStatus]' derivation='None' name='[none:DonorStatus:nk]' pivot='key' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[Calculation_3935090601008328704]' derivation='Sum' name='[sum:Calculation_3935090601008328704:qk]' pivot='key' type='quantitative' />
             <column-instance column='[ReceivedDate]' derivation='Month-Trunc' name='[tmn:ReceivedDate:ok]' pivot='key' type='ordinal' />
@@ -5164,6 +5178,7 @@
             <shelf-sort-v2 dimension-to-sort='[federated.07we6dr180747v10gveja160dayo].[yr:ReceivedDate:ok]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.07we6dr180747v10gveja160dayo].[yr:ReceivedDate:ok]' shelf='rows' />
           </shelf-sorts>
           <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (Donation Type,MONTH(Received Date))]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (RFM Customer Segment)]</column>
@@ -5223,6 +5238,7 @@
           <datasource-dependencies datasource='federated.07we6dr180747v10gveja160dayo'>
             <column caption='Donation Type' datatype='string' name='[DonationType]' role='dimension' type='nominal' />
             <column caption='Donor Id' datatype='integer' name='[DonorId]' role='dimension' type='ordinal' />
+            <column caption='Donor Status' datatype='string' name='[DonorStatus]' role='dimension' type='nominal' />
             <column datatype='real' name='[Monetary]' role='measure' type='quantitative' />
             <column caption='RFM Customer Segment' datatype='string' name='[RFM_Customer_Segment]' role='dimension' type='nominal' />
             <_.fcp.ObjectModelTableType.false...column caption='Sheet1' datatype='integer' name='[__tableau_internal_object_id__].[Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9]' role='measure' type='quantitative' />
@@ -5231,6 +5247,7 @@
             <column-instance column='[__tableau_internal_object_id__].[Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9]' derivation='Count' name='[__tableau_internal_object_id__].[cnt:Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9:qk]' pivot='key' type='quantitative' />
             <column-instance column='[DonorId]' derivation='CountD' name='[ctd:DonorId:qk]' pivot='key' type='quantitative' />
             <column-instance column='[ReceivedDate]' derivation='Month' name='[mn:ReceivedDate:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[DonorStatus]' derivation='None' name='[none:DonorStatus:nk]' pivot='key' type='nominal' />
             <column-instance column='[RFM_Customer_Segment]' derivation='None' name='[none:RFM_Customer_Segment:nk]' pivot='key' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[Monetary]' derivation='Sum' name='[pcto:sum:Monetary:qk:2]' pivot='key' type='quantitative'>
@@ -5260,6 +5277,7 @@
           </filter>
           <computed-sort column='[federated.07we6dr180747v10gveja160dayo].[none:RFM_Customer_Segment:nk]' direction='ASC' using='[federated.07we6dr180747v10gveja160dayo].[sum:Monetary:qk]' />
           <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (Donation Type,MONTH(Received Date))]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:RFM_Customer_Segment:nk]</column>
@@ -5284,6 +5302,8 @@
             <mark class='Automatic' />
             <encodings>
               <text column='[federated.07we6dr180747v10gveja160dayo].[none:RFM_Customer_Segment:nk]' />
+              <text column='[federated.07we6dr180747v10gveja160dayo].[pcto:sum:Monetary:qk:2]' />
+              <text column='[federated.07we6dr180747v10gveja160dayo].[__tableau_internal_object_id__].[cnt:Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9:qk]' />
               <tooltip column='[federated.07we6dr180747v10gveja160dayo].[pcto:sum:Monetary:qk:2]' />
               <color column='[federated.07we6dr180747v10gveja160dayo].[sum:Monetary:qk]' />
               <lod column='[federated.07we6dr180747v10gveja160dayo].[__tableau_internal_object_id__].[cnt:Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9:qk]' />
@@ -5304,6 +5324,17 @@
                 <run bold='true'><![CDATA[<[federated.07we6dr180747v10gveja160dayo].[sum:Monetary:qk]>]]></run>
               </formatted-text>
             </customized-tooltip>
+            <customized-label>
+              <formatted-text>
+                <run> &lt;</run>
+                <run>[federated.07we6dr180747v10gveja160dayo].[none:RFM_Customer_Segment:nk]</run>
+                <run>&gt;&#10;# of Donors:&lt;</run>
+                <run>[federated.07we6dr180747v10gveja160dayo].[__tableau_internal_object_id__].[cnt:Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9:qk]</run>
+                <run>&gt;&#10;Contribution Size: &lt;</run>
+                <run>[federated.07we6dr180747v10gveja160dayo].[pcto:sum:Monetary:qk:2]</run>
+                <run>&gt;</run>
+              </formatted-text>
+            </customized-label>
             <style>
               <style-rule element='mark'>
                 <format attr='mark-labels-show' value='true' />
@@ -5348,6 +5379,7 @@
               <calculation class='tableau' formula='IF [Frequency] = 1 and [LastDonationDate] &gt; #2017-06-08# THEN 1 ELSE 0 END' />
             </column>
             <column caption='Donation Type' datatype='string' name='[DonationType]' role='dimension' type='nominal' />
+            <column caption='Donor Status' datatype='string' name='[DonorStatus]' role='dimension' type='nominal' />
             <column datatype='integer' name='[Frequency]' role='measure' type='quantitative' />
             <column caption='Last Donation Date' datatype='date' name='[LastDonationDate]' role='dimension' type='ordinal' />
             <column caption='RFM Customer Segment' datatype='string' name='[RFM_Customer_Segment]' role='dimension' type='nominal' />
@@ -5356,6 +5388,7 @@
             <column datatype='integer' name='[Recency]' role='measure' type='quantitative' />
             <_.fcp.ObjectModelTableType.true...column caption='Sheet1' datatype='table' name='[__tableau_internal_object_id__].[Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9]' role='measure' type='quantitative' />
             <column-instance column='[ReceivedDate]' derivation='Month' name='[mn:ReceivedDate:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[DonorStatus]' derivation='None' name='[none:DonorStatus:nk]' pivot='key' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[ReceivedDate]' derivation='Month-Trunc' name='[tmn:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[Calculation_1848586965336027140]' derivation='User' name='[usr:Calculation_1848586965336027140:qk]' pivot='key' type='quantitative' />
@@ -5377,6 +5410,7 @@
             </groupfilter>
           </filter>
           <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (Donation Type,MONTH(Received Date))]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (RFM Customer Segment)]</column>
@@ -5446,6 +5480,7 @@
             <column caption='New Donor' datatype='integer' name='[Calculation_2129358254668193795]' role='measure' type='quantitative'>
               <calculation class='tableau' formula='IF [Frequency] = 1 and [LastDonationDate] &gt; #2017-06-08# THEN 1 ELSE 0 END' />
             </column>
+            <column caption='Donor Status' datatype='string' name='[DonorStatus]' role='dimension' type='nominal' />
             <column datatype='integer' name='[Frequency]' role='measure' type='quantitative' />
             <column caption='Last Donation Date' datatype='date' name='[LastDonationDate]' role='dimension' type='ordinal' />
             <column caption='RFM Customer Segment' datatype='string' name='[RFM_Customer_Segment]' role='dimension' type='nominal' />
@@ -5453,6 +5488,7 @@
             <_.fcp.ObjectModelTableType.false...column caption='Sheet1' datatype='integer' name='[__tableau_internal_object_id__].[Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9]' role='measure' type='quantitative' />
             <column datatype='integer' name='[Recency]' role='measure' type='quantitative' />
             <_.fcp.ObjectModelTableType.true...column caption='Sheet1' datatype='table' name='[__tableau_internal_object_id__].[Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9]' role='measure' type='quantitative' />
+            <column-instance column='[DonorStatus]' derivation='None' name='[none:DonorStatus:nk]' pivot='key' type='nominal' />
             <column-instance column='[RFM_Customer_Segment]' derivation='None' name='[none:RFM_Customer_Segment:nk]' pivot='key' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[Calculation_1848586965332467713]' derivation='Sum' name='[sum:Calculation_1848586965332467713:qk]' pivot='key' type='quantitative' />
@@ -5462,6 +5498,7 @@
             <shelf-sort-v2 dimension-to-sort='[federated.07we6dr180747v10gveja160dayo].[none:RFM_Customer_Segment:nk]' direction='ASC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.07we6dr180747v10gveja160dayo].[usr:Calculation_1848586965336027140:qk]' shelf='rows' />
           </shelf-sorts>
           <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
           </slices>
           <aggregation value='true' />
@@ -5515,6 +5552,7 @@
             <column-instance column='[ReceivedDate]' derivation='Year-Trunc' name='[tyr:ReceivedDate:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
           <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
           </slices>
           <aggregation value='true' />
@@ -5545,6 +5583,7 @@
           <datasource-dependencies datasource='federated.07we6dr180747v10gveja160dayo'>
             <column caption='Donation Type' datatype='string' name='[DonationType]' role='dimension' type='nominal' />
             <column caption='Donor Id' datatype='integer' name='[DonorId]' role='dimension' type='ordinal' />
+            <column caption='Donor Status' datatype='string' name='[DonorStatus]' role='dimension' type='nominal' />
             <column datatype='integer' name='[Frequency]' role='measure' type='quantitative' />
             <column datatype='real' name='[Monetary]' role='measure' type='quantitative' />
             <column caption='RFM Customer Segment' datatype='string' name='[RFM_Customer_Segment]' role='dimension' type='nominal' />
@@ -5552,6 +5591,7 @@
             <column datatype='integer' name='[Recency]' role='measure' type='quantitative' />
             <column-instance column='[ReceivedDate]' derivation='Month' name='[mn:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[DonorId]' derivation='None' name='[none:DonorId:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[DonorStatus]' derivation='None' name='[none:DonorStatus:nk]' pivot='key' type='nominal' />
             <column-instance column='[RFM_Customer_Segment]' derivation='None' name='[none:RFM_Customer_Segment:nk]' pivot='key' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[Frequency]' derivation='Sum' name='[sum:Frequency:qk]' pivot='key' type='quantitative' />
@@ -5576,6 +5616,7 @@
             </groupfilter>
           </filter>
           <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (Donation Type,MONTH(Received Date))]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (RFM Customer Segment)]</column>
@@ -5760,12 +5801,9 @@
               <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
             </groupfilter>
           </filter>
-          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]'>
-            <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-          </filter>
           <slices>
-            <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (RFM Customer Segment)]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (YEAR(Received Date),MONTH(Received Date))]</column>
           </slices>
@@ -5838,12 +5876,9 @@
               <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
             </groupfilter>
           </filter>
-          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]'>
-            <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-          </filter>
           <slices>
-            <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (YEAR(Received Date),MONTH(Received Date))]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (RFM Customer Segment)]</column>
           </slices>
@@ -5948,13 +5983,16 @@
             </column>
             <column caption='Donation Type' datatype='string' name='[DonationType]' role='dimension' type='nominal' />
             <column datatype='integer' name='[DonorId (Donations accepted by political parties.csv)]' role='dimension' type='ordinal' />
+            <column caption='Donor Status' datatype='string' name='[DonorStatus]' role='dimension' type='nominal' />
             <column caption='Received Date' datatype='date' name='[ReceivedDate]' role='dimension' type='ordinal' />
             <_.fcp.ObjectModelTableType.true...column caption='Donations accepted by political parties.csv' datatype='table' name='[__tableau_internal_object_id__].[Donations accepted by political parties.csv_7ED980E6D3784B17A78E4708367A5A71]' role='measure' type='quantitative' />
             <column-instance column='[DonorId (Donations accepted by political parties.csv)]' derivation='CountD' name='[ctd:DonorId (Donations accepted by political parties.csv):qk]' pivot='key' type='quantitative' />
             <column-instance column='[Calculation_3673178134942277632]' derivation='None' name='[none:Calculation_3673178134942277632:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[DonorStatus]' derivation='None' name='[none:DonorStatus:nk]' pivot='key' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
           </datasource-dependencies>
           <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
           </slices>
           <aggregation value='true' />
@@ -5992,11 +6030,13 @@
             </column>
             <column caption='Donation Type' datatype='string' name='[DonationType]' role='dimension' type='nominal' />
             <column caption='Donor Id' datatype='integer' name='[DonorId]' role='dimension' type='ordinal' />
+            <column caption='Donor Status' datatype='string' name='[DonorStatus]' role='dimension' type='nominal' />
             <column caption='RFM Customer Segment' datatype='string' name='[RFM_Customer_Segment]' role='dimension' type='nominal' />
             <column caption='Received Date' datatype='date' name='[ReceivedDate]' role='dimension' type='ordinal' />
             <column caption='Reported Date' datatype='date' name='[ReportedDate]' role='dimension' type='ordinal' />
             <column-instance column='[DonorId]' derivation='CountD' name='[ctd:DonorId:qk]' pivot='key' type='quantitative' />
             <column-instance column='[ReceivedDate]' derivation='Month' name='[mn:ReceivedDate:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[DonorStatus]' derivation='None' name='[none:DonorStatus:nk]' pivot='key' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[ReceivedDate]' derivation='Month-Trunc' name='[tmn:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[Calculation_4812588841739190273]' derivation='Year' name='[yr:Calculation_4812588841739190273:ok]' pivot='key' type='ordinal' />
@@ -6021,6 +6061,7 @@
             <groupfilter function='member' level='[yr:Calculation_4812588841739190273:ok]' member='2019' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
           </filter>
           <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (Donation Type,MONTH(Received Date))]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (RFM Customer Segment)]</column>
@@ -6103,12 +6144,9 @@
               <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
             </groupfilter>
           </filter>
-          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]'>
-            <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-          </filter>
           <slices>
-            <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (RFM Customer Segment)]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (YEAR(Received Date),MONTH(Received Date))]</column>
           </slices>
@@ -6180,12 +6218,9 @@
               <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
             </groupfilter>
           </filter>
-          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]'>
-            <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-          </filter>
           <slices>
-            <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (RFM Customer Segment)]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (YEAR(Received Date),MONTH(Received Date))]</column>
           </slices>
@@ -6282,14 +6317,17 @@
               <calculation class='tableau' formula='FLOAT(REPLACE([Value], &apos;£&apos;, &apos;&apos;))' />
             </column>
             <column caption='Donation Type' datatype='string' name='[DonationType]' role='dimension' type='nominal' />
+            <column caption='Donor Status' datatype='string' name='[DonorStatus]' role='dimension' type='nominal' />
             <column caption='Received Date' datatype='date' name='[ReceivedDate]' role='dimension' type='ordinal' />
             <column datatype='string' name='[Value]' role='dimension' type='nominal' />
             <column-instance column='[DonationType]' derivation='None' name='[none:DonationType:nk]' pivot='key' type='nominal' />
+            <column-instance column='[DonorStatus]' derivation='None' name='[none:DonorStatus:nk]' pivot='key' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[Calculation_1848586965291671552]' derivation='Sum' name='[sum:Calculation_1848586965291671552:qk]' pivot='key' type='quantitative' />
             <column-instance column='[ReceivedDate]' derivation='Week-Trunc' name='[twk:ReceivedDate:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
           <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
           </slices>
           <aggregation value='true' />
@@ -6389,9 +6427,11 @@
               </calculation>
             </column>
             <column caption='Donation Type' datatype='string' name='[DonationType]' role='dimension' type='nominal' />
+            <column caption='Donor Status' datatype='string' name='[DonorStatus]' role='dimension' type='nominal' />
             <column caption='Received Date' datatype='date' name='[ReceivedDate]' role='dimension' type='ordinal' />
             <column datatype='string' name='[Value]' role='dimension' type='nominal' />
             <_.fcp.ObjectModelTableType.true...column caption='Donations accepted by political parties.csv' datatype='table' name='[__tableau_internal_object_id__].[Donations accepted by political parties.csv_7ED980E6D3784B17A78E4708367A5A71]' role='measure' type='quantitative' />
+            <column-instance column='[DonorStatus]' derivation='None' name='[none:DonorStatus:nk]' pivot='key' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[Calculation_1848586965291671552]' derivation='Sum' name='[sum:Calculation_1848586965291671552:qk]' pivot='key' type='quantitative' />
             <column-instance column='[ReceivedDate]' derivation='Week-Trunc' name='[twk:ReceivedDate:qk]' pivot='key' type='quantitative' />
@@ -6405,6 +6445,7 @@
             </column-instance>
           </datasource-dependencies>
           <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
           </slices>
           <aggregation value='true' />
@@ -6451,9 +6492,11 @@
           </datasources>
           <datasource-dependencies datasource='federated.07we6dr180747v10gveja160dayo'>
             <column caption='Donation Type' datatype='string' name='[DonationType]' role='dimension' type='nominal' />
+            <column caption='Donor Status' datatype='string' name='[DonorStatus]' role='dimension' type='nominal' />
             <column datatype='real' name='[Monetary]' role='measure' type='quantitative' />
             <column caption='Received Date' datatype='date' name='[ReceivedDate]' role='dimension' type='ordinal' />
             <column-instance column='[DonationType]' derivation='None' name='[none:DonationType:nk]' pivot='key' type='nominal' />
+            <column-instance column='[DonorStatus]' derivation='None' name='[none:DonorStatus:nk]' pivot='key' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[Monetary]' derivation='Sum' name='[sum:Monetary:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
@@ -6467,6 +6510,7 @@
             </groupfilter>
           </filter>
           <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonationType:nk]</column>
           </slices>
@@ -6534,6 +6578,7 @@
             <column-instance column='[Monetary]' derivation='Sum' name='[sum:Monetary:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
           <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
           </slices>
           <aggregation value='true' />
@@ -6593,11 +6638,13 @@
               <calculation class='tableau' formula='IF  [ReportedDate]&lt;= #2001-06-07# THEN DATE(#2001-06-07#)&#10;ELSEIF [ReportedDate]&lt;= #2005-05-05# THEN DATE(#2005-05-05#)&#10;ELSEIF [ReportedDate]&lt;= #2010-05-06# THEN DATE(#2010-05-06#)&#10;ELSEIF [ReportedDate]&lt;= #2015-05-07# THEN DATE(#2015-05-07#)&#10;ELSEIF [ReportedDate]&lt;= #2017-06-08# THEN DATE(#2017-06-08#)&#10;ELSEIF [ReportedDate]&lt;= #2019-12-12# THEN DATE(#2019-12-12#)&#10;ELSEIF [ReportedDate]&lt;= #2024-07-04# THEN DATE(#2024-07-04#)&#10;ELSE NULL&#10;&#10;END' />
             </column>
             <column caption='Donation Type' datatype='string' name='[DonationType]' role='dimension' type='nominal' />
+            <column caption='Donor Status' datatype='string' name='[DonorStatus]' role='dimension' type='nominal' />
             <column caption='RFM Customer Segment' datatype='string' name='[RFM_Customer_Segment]' role='dimension' type='nominal' />
             <column caption='Received Date' datatype='date' name='[ReceivedDate]' role='dimension' type='ordinal' />
             <column caption='Reported Date' datatype='date' name='[ReportedDate]' role='dimension' type='ordinal' />
             <column datatype='string' name='[Value]' role='dimension' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='Month' name='[mn:ReceivedDate:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[DonorStatus]' derivation='None' name='[none:DonorStatus:nk]' pivot='key' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[Calculation_1848586965291671552]' derivation='Sum' name='[sum:Calculation_1848586965291671552:qk]' pivot='key' type='quantitative' />
             <column-instance column='[ReceivedDate]' derivation='Month-Trunc' name='[tmn:ReceivedDate:ok]' pivot='key' type='ordinal' />
@@ -6623,6 +6670,7 @@
             <groupfilter function='member' level='[yr:Calculation_4812588841739190273:ok]' member='2019' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
           </filter>
           <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[yr:Calculation_4812588841739190273:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (Donation Type,MONTH(Received Date))]</column>
@@ -6709,12 +6757,9 @@
               <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
             </groupfilter>
           </filter>
-          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]'>
-            <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-          </filter>
           <slices>
-            <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (RFM Customer Segment)]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (YEAR(Received Date),MONTH(Received Date))]</column>
           </slices>
@@ -6786,12 +6831,9 @@
               <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
             </groupfilter>
           </filter>
-          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]'>
-            <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
-          </filter>
           <slices>
-            <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (RFM Customer Segment)]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (YEAR(Received Date),MONTH(Received Date))]</column>
           </slices>
@@ -7055,7 +7097,7 @@
                             <zone h='26000' id='85' is-fixed='true' type-v2='layout-basic' w='31260' x='67302' y='40357'>
                               <zone h='26000' id='86' param='vert' type-v2='layout-flow' w='31260' x='67302' y='40357'>
                                 <zone h='25989' id='104' name='Donor Activity Heat Map' w='31260' x='67302' y='40357'>
-                                  <layout-cache type-h='cell' type-w='fixed' />
+                                  <layout-cache cell-count-h='19' non-cell-size-h='63' type-h='cell' type-w='fixed' />
                                   <zone-style>
                                     <format attr='border-color' value='#000000' />
                                     <format attr='border-style' value='none' />
@@ -7104,7 +7146,7 @@
               </zone>
               <zone h='32001' id='38' param='horz' type-v2='layout-flow' w='66106' x='1188' y='66643'>
                 <zone h='32001' id='146' name='Donations by Donor Group' w='65481' x='1188' y='66643'>
-                  <layout-cache minwidth='260' type-h='fixed' type-w='scalable' />
+                  <layout-cache minwidth='180' type-h='fixed' type-w='scalable' />
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -8022,6 +8064,163 @@
       </devicelayouts>
       <simple-id uuid='{8A75A9C3-C5AA-4815-9433-014D2257BB17}' />
     </dashboard>
+    <dashboard _.fcp.AccessibleZoneTabOrder.true...enable-sort-zone-taborder='true' name='Page 4'>
+      <style />
+      <size maxheight='800' maxwidth='1000' minheight='800' minwidth='1000' />
+      <zones>
+        <zone h='100000' id='4' type-v2='layout-basic' w='100000' x='0' y='0'>
+          <zone h='98000' id='78' param='horz' type-v2='layout-flow' w='98400' x='800' y='1000'>
+            <zone h='98000' id='75' param='horz' type-v2='layout-flow' w='98400' x='800' y='1000'>
+              <zone h='98000' id='72' param='horz' type-v2='layout-flow' w='98400' x='800' y='1000'>
+                <zone h='98000' id='10' type-v2='layout-basic' w='98400' x='800' y='1000'>
+                  <zone h='90750' id='3' layout-strategy-id='distribute-evenly' param='vert' type-v2='layout-flow' w='98400' x='800' y='8250'>
+                    <zone h='90750' id='5' param='horz' type-v2='layout-flow' w='98400' x='800' y='8250'>
+                      <zone h='90750' id='7' layout-strategy-id='distribute-evenly' param='vert' type-v2='layout-flow' w='98400' x='800' y='8250'>
+                        <zone h='45375' id='69' param='horz' type-v2='layout-flow' w='98400' x='800' y='8250'>
+                          <zone forceUpdate='true' h='40375' id='68' type-v2='text' w='23500' x='2800' y='10750'>
+                            <formatted-text>
+                              <run fontcolor='#000000' fontname='Benton Sans Book'>Champions account for nearly 80% of all donations but are the second smallest segment by size. Potential loyalists is the largest segment and have the highest likelihood of converting to Champions.</run>
+                            </formatted-text>
+                            <zone-style>
+                              <format attr='border-color' value='#000000' />
+                              <format attr='border-style' value='none' />
+                              <format attr='border-width' value='0' />
+                              <format attr='margin' value='4' />
+                            </zone-style>
+                          </zone>
+                          <zone fixed-size='701' h='40375' id='73' is-fixed='true' name='Donor Segments' w='70900' x='26300' y='10750'>
+                            <layout-cache type-h='fixed' type-w='cell' />
+                            <zone-style>
+                              <format attr='border-color' value='#000000' />
+                              <format attr='border-style' value='none' />
+                              <format attr='border-width' value='0' />
+                              <format attr='margin' value='4' />
+                            </zone-style>
+                          </zone>
+                          <zone-style>
+                            <format attr='border-color' value='#000000' />
+                            <format attr='border-style' value='none' />
+                            <format attr='border-width' value='0' />
+                            <format attr='margin' value='10' />
+                            <format attr='padding' value='10' />
+                          </zone-style>
+                        </zone>
+                        <zone h='45375' id='14' param='horz' type-v2='layout-flow' w='98400' x='800' y='53625'>
+                          <zone h='40375' id='76' name='Donations by Donor Group' w='74300' x='2800' y='56125'>
+                            <layout-cache minwidth='180' type-h='fixed' type-w='scalable' />
+                            <zone-style>
+                              <format attr='border-color' value='#000000' />
+                              <format attr='border-style' value='none' />
+                              <format attr='border-width' value='0' />
+                              <format attr='margin' value='4' />
+                            </zone-style>
+                          </zone>
+                          <zone fixed-size='161' forceUpdate='true' h='40375' id='16' is-fixed='true' type-v2='text' w='16900' x='77100' y='56125'>
+                            <formatted-text>
+                              <run fontcolor='#000000' fontname='Benton Sans Book'>Donations from all donor groups have seen a steady decline since 2017 and all groups except public fund donors have donated less than they did in 2001. </run>
+                            </formatted-text>
+                            <zone-style>
+                              <format attr='border-color' value='#000000' />
+                              <format attr='border-style' value='none' />
+                              <format attr='border-width' value='0' />
+                              <format attr='margin' value='4' />
+                            </zone-style>
+                          </zone>
+                          <zone fixed-size='24' h='40375' id='17' is-fixed='true' type-v2='empty' w='3200' x='94000' y='56125'>
+                            <zone-style>
+                              <format attr='border-color' value='#000000' />
+                              <format attr='border-style' value='none' />
+                              <format attr='border-width' value='0' />
+                              <format attr='margin' value='4' />
+                            </zone-style>
+                          </zone>
+                          <zone-style>
+                            <format attr='border-color' value='#000000' />
+                            <format attr='border-style' value='none' />
+                            <format attr='border-width' value='0' />
+                            <format attr='margin' value='10' />
+                            <format attr='padding' value='10' />
+                          </zone-style>
+                        </zone>
+                      </zone>
+                    </zone>
+                    <zone-style>
+                      <format attr='border-color' value='#000000' />
+                      <format attr='border-style' value='none' />
+                      <format attr='border-width' value='0' />
+                      <format attr='background-color' value='#f3f2f1' />
+                    </zone-style>
+                  </zone>
+                  <zone forceUpdate='true' h='7000' id='8' type-v2='text' w='98400' x='800' y='1000'>
+                    <formatted-text>
+                      <run bold='true' fontsize='14'>Donor Segments</run>
+                    </formatted-text>
+                    <zone-style>
+                      <format attr='border-color' value='#000000' />
+                      <format attr='border-style' value='none' />
+                      <format attr='border-width' value='0' />
+                      <format attr='margin' value='4' />
+                      <format attr='background-color' value='#f3f2f1' />
+                    </zone-style>
+                  </zone>
+                </zone>
+              </zone>
+            </zone>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='8' />
+            <format attr='background-color' value='#f3f2f1' />
+          </zone-style>
+        </zone>
+      </zones>
+      <devicelayouts>
+        <devicelayout auto-generated='true' name='Phone'>
+          <size maxheight='850' minheight='850' sizing-mode='vscroll' />
+          <zones>
+            <zone h='100000' id='64' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98000' id='63' param='vert' type-v2='layout-flow' w='98400' x='800' y='1000'>
+                <zone forceUpdate='true' h='7000' id='8' type-v2='text' w='98400' x='800' y='1000'>
+                  <formatted-text>
+                    <run bold='true' fontsize='14'>Donor Segments</run>
+                  </formatted-text>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                    <format attr='background-color' value='#f3f2f1' />
+                  </zone-style>
+                </zone>
+                <zone forceUpdate='true' h='44375' id='16' type-v2='text' w='24000' x='16400' y='54125'>
+                  <formatted-text>
+                    <run fontcolor='#000000' fontname='Benton Sans Book'>Donations from all donor groups have seen a steady decline since 2017 and all groups except public fund donors have donated less than they did in 2001. </run>
+                  </formatted-text>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+              </zone>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='8' />
+                <format attr='background-color' value='#f3f2f1' />
+              </zone-style>
+            </zone>
+          </zones>
+        </devicelayout>
+      </devicelayouts>
+      <simple-id uuid='{A742ECDF-9E59-416F-8A5E-AE920A1148D1}' />
+    </dashboard>
     <dashboard name='Story 1' type='storyboard'>
       <style />
       <size maxheight='964' maxwidth='1016' minheight='964' minwidth='1016' />
@@ -8866,7 +9065,7 @@
       </cards>
       <simple-id uuid='{0C0C14AE-8363-4E10-A382-EB5C4A741D19}' />
     </window>
-    <window class='dashboard' maximized='true' name='2019 Donor Dashboard'>
+    <window class='dashboard' name='2019 Donor Dashboard'>
       <viewpoints>
         <viewpoint name='Company Donations'>
           <zoom type='entire-view' />
@@ -8920,7 +9119,7 @@
           <zoom type='entire-view' />
         </viewpoint>
       </viewpoints>
-      <active id='7' />
+      <active id='146' />
       <grid grid-size='30' />
       <simple-id uuid='{F95123A6-FA9D-4AF5-A5A8-DD20642C0E37}' />
     </window>
@@ -8933,7 +9132,7 @@
           <zoom type='entire-view' />
         </viewpoint>
       </viewpoints>
-      <active id='11' />
+      <active id='-1' />
       <simple-id uuid='{FA68886C-3E25-4268-BAAD-40A89D5E9502}' />
     </window>
     <window class='dashboard' name='Page 2'>
@@ -8959,6 +9158,18 @@
       </viewpoints>
       <active id='10' />
       <simple-id uuid='{10037858-A320-4E4B-B6FC-2C2531A5691D}' />
+    </window>
+    <window class='dashboard' maximized='true' name='Page 4'>
+      <viewpoints>
+        <viewpoint name='Donations by Donor Group'>
+          <zoom type='entire-view' />
+        </viewpoint>
+        <viewpoint name='Donor Segments'>
+          <zoom type='entire-view' />
+        </viewpoint>
+      </viewpoints>
+      <active id='68' />
+      <simple-id uuid='{2E90F5B4-24A5-4CD1-B770-2AB0D1E69577}' />
     </window>
     <window class='dashboard' name='Story 1'>
       <viewpoints />
