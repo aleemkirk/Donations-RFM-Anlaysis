@@ -3947,20 +3947,9 @@
         <datasource caption='output' name='federated.07we6dr180747v10gveja160dayo' />
       </datasources>
       <datasource-dependencies datasource='federated.07we6dr180747v10gveja160dayo'>
-        <column caption='Donor Status' datatype='string' name='[DonorStatus]' role='dimension' type='nominal' />
         <column caption='Received Date' datatype='date' name='[ReceivedDate]' role='dimension' type='ordinal' />
-        <column-instance column='[DonorStatus]' derivation='None' name='[none:DonorStatus:nk]' pivot='key' type='nominal' />
         <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
       </datasource-dependencies>
-      <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
-        <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
-          <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
-          <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
-          <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
-          <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
-        </groupfilter>
-        <target field='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' />
-      </filter>
       <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]' context='true'>
         <groupfilter expression='NOT ISNULL([ReceivedDate])' function='filter' user:ui-marker='filter-by'>
           <groupfilter function='level-members' level='[none:ReceivedDate:ok]' user:ui-enumeration='all' user:ui-marker='enumerate' />
@@ -4041,6 +4030,14 @@
               <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
             </groupfilter>
           </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+            </groupfilter>
+          </filter>
           <slices>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
@@ -4115,9 +4112,12 @@
               <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
             </groupfilter>
           </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]'>
+            <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
           <slices>
-            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (RFM Customer Segment)]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (YEAR(Received Date),MONTH(Received Date))]</column>
           </slices>
@@ -4236,6 +4236,14 @@
             </column-instance>
             <column-instance column='[ReceivedDate]' derivation='Year-Trunc' name='[tyr:ReceivedDate:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+            </groupfilter>
+          </filter>
           <manual-sort column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' direction='ASC'>
             <dictionary>
               <bucket>&quot;Individual&quot;</bucket>
@@ -4363,6 +4371,14 @@
               <groupfilter function='level-members' level='[RFM_Customer_Segment]' />
             </groupfilter>
           </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+            </groupfilter>
+          </filter>
           <filter class='quantitative' column='[federated.07we6dr180747v10gveja160dayo].[pcto:sum:Calculation_1848586965291671552:qk:2]' included-values='non-null' />
           <slices>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
@@ -4463,6 +4479,14 @@
               <groupfilter function='level-members' level='[RFM_Customer_Segment]' />
             </groupfilter>
           </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+            </groupfilter>
+          </filter>
           <slices>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
@@ -4541,6 +4565,14 @@
             <column-instance column='[Calculation_1848586965291671552]' derivation='Sum' name='[sum:Calculation_1848586965291671552:ok]' pivot='key' type='ordinal' />
             <column-instance column='[Calculation_4812588841739190273]' derivation='Year-Trunc' name='[tyr:Calculation_4812588841739190273:ok]' pivot='key' type='ordinal' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+            </groupfilter>
+          </filter>
           <slices>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
@@ -4591,6 +4623,14 @@
                 <groupfilter function='member' level='[none:RegulatedEntityName:nk]' member='&quot;The In Campaign Ltd&quot;' />
                 <groupfilter function='member' level='[yr:ReceivedDate:qk]' member='2016' />
               </groupfilter>
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
             </groupfilter>
           </filter>
           <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:RegulatedEntityName:nk]'>
@@ -4720,6 +4760,14 @@
             <groupfilter function='crossjoin' user:ui-action-filter='[Action - Donations Over Time]' user:ui-enumeration='all' user:ui-marker='enumerate'>
               <groupfilter function='level-members' level='[DonorId]' />
               <groupfilter function='level-members' level='[RFM_Customer_Segment]' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
             </groupfilter>
           </filter>
           <slices>
@@ -4855,6 +4903,14 @@
             </column-instance>
             <column-instance column='[ReceivedDate]' derivation='Year-Trunc' name='[tyr:ReceivedDate:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+            </groupfilter>
+          </filter>
           <slices>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
@@ -4965,6 +5021,14 @@
             <groupfilter function='crossjoin' user:ui-action-filter='[Action - Donations Over Time]' user:ui-enumeration='all' user:ui-marker='enumerate'>
               <groupfilter function='level-members' level='[DonorId]' />
               <groupfilter function='level-members' level='[RFM_Customer_Segment]' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
             </groupfilter>
           </filter>
           <slices>
@@ -5095,7 +5159,6 @@
             <shelf-sort-v2 dimension-to-sort='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.07we6dr180747v10gveja160dayo].[sum:Monetary:qk]' shelf='rows' />
           </shelf-sorts>
           <slices>
-            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (RFM Customer Segment)]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[sum:Monetary:qk]</column>
@@ -5109,19 +5172,18 @@
           </style-rule>
           <style-rule element='header'>
             <format attr='band-color' scope='cols' value='#00000000' />
-            <format attr='background-color' scope='rows' value='#f3f2f1' />
-            <format attr='background-color' data-class='subtotal' scope='rows' value='#f3f2f1' />
-            <format attr='band-color' scope='rows' value='#f3f2f1' />
+            <format attr='band-color' scope='rows' value='#00000000' />
+            <format attr='background-color' scope='rows' value='#00000000' />
           </style-rule>
           <style-rule element='pane'>
             <format attr='band-color' scope='cols' value='#00000000' />
             <format attr='background-color' data-class='subtotal' scope='rows' value='#f3f2f1' />
-            <format attr='band-color' scope='rows' value='#f3f2f1' />
+            <format attr='band-color' scope='rows' value='#00000000' />
           </style-rule>
           <style-rule element='table'>
             <format attr='band-size' scope='cols' value='1' />
-            <format attr='band-size' scope='rows' value='1' />
             <format attr='background-color' value='#00000000' />
+            <format attr='band-size' scope='rows' value='1' />
           </style-rule>
           <style-rule element='gridline'>
             <format attr='stroke-size' value='0' />
@@ -5173,6 +5235,14 @@
           </filter>
           <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[Action (RFM Customer Segment)]'>
             <groupfilter function='level-members' level='[RFM_Customer_Segment]' user:ui-action-filter='[Action3_192D929C37A04B0FA4E055DDA46AFDDE]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+            </groupfilter>
           </filter>
           <shelf-sorts>
             <shelf-sort-v2 dimension-to-sort='[federated.07we6dr180747v10gveja160dayo].[yr:ReceivedDate:ok]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.07we6dr180747v10gveja160dayo].[yr:ReceivedDate:ok]' shelf='rows' />
@@ -5267,6 +5337,14 @@
             <groupfilter function='crossjoin' user:ui-action-filter='[Action5_A029BB6E1C234F8C84EEE11EFCC5C896]' user:ui-enumeration='all' user:ui-marker='enumerate'>
               <groupfilter function='level-members' level='[yr:ReceivedDate:ok]' />
               <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
             </groupfilter>
           </filter>
           <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:RFM_Customer_Segment:nk]'>
@@ -5409,6 +5487,14 @@
               <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
             </groupfilter>
           </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+            </groupfilter>
+          </filter>
           <slices>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
@@ -5494,6 +5580,14 @@
             <column-instance column='[Calculation_1848586965332467713]' derivation='Sum' name='[sum:Calculation_1848586965332467713:qk]' pivot='key' type='quantitative' />
             <column-instance column='[Calculation_1848586965336027140]' derivation='User' name='[usr:Calculation_1848586965336027140:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+            </groupfilter>
+          </filter>
           <shelf-sorts>
             <shelf-sort-v2 dimension-to-sort='[federated.07we6dr180747v10gveja160dayo].[none:RFM_Customer_Segment:nk]' direction='ASC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.07we6dr180747v10gveja160dayo].[usr:Calculation_1848586965336027140:qk]' shelf='rows' />
           </shelf-sorts>
@@ -5551,6 +5645,14 @@
             </column-instance>
             <column-instance column='[ReceivedDate]' derivation='Year-Trunc' name='[tyr:ReceivedDate:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+            </groupfilter>
+          </filter>
           <slices>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
@@ -5613,6 +5715,14 @@
             <groupfilter function='crossjoin' user:ui-action-filter='[Action5_A029BB6E1C234F8C84EEE11EFCC5C896]' user:ui-enumeration='all' user:ui-marker='enumerate'>
               <groupfilter function='level-members' level='[yr:ReceivedDate:ok]' />
               <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
             </groupfilter>
           </filter>
           <slices>
@@ -5801,6 +5911,14 @@
               <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
             </groupfilter>
           </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+            </groupfilter>
+          </filter>
           <slices>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
@@ -5876,9 +5994,12 @@
               <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
             </groupfilter>
           </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]'>
+            <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate' />
+          </filter>
           <slices>
-            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (YEAR(Received Date),MONTH(Received Date))]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[Action (RFM Customer Segment)]</column>
           </slices>
@@ -5991,6 +6112,14 @@
             <column-instance column='[DonorStatus]' derivation='None' name='[none:DonorStatus:nk]' pivot='key' type='nominal' />
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+            </groupfilter>
+          </filter>
           <slices>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
@@ -6055,6 +6184,14 @@
             <groupfilter function='crossjoin' user:ui-action-filter='[Action5_A029BB6E1C234F8C84EEE11EFCC5C896]' user:ui-enumeration='all' user:ui-marker='enumerate'>
               <groupfilter function='level-members' level='[yr:ReceivedDate:ok]' />
               <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
             </groupfilter>
           </filter>
           <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[yr:Calculation_4812588841739190273:ok]'>
@@ -6144,6 +6281,14 @@
               <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
             </groupfilter>
           </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+            </groupfilter>
+          </filter>
           <slices>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
@@ -6216,6 +6361,14 @@
             <groupfilter function='crossjoin' user:ui-action-filter='[Action5_A029BB6E1C234F8C84EEE11EFCC5C896]' user:ui-enumeration='all' user:ui-marker='enumerate'>
               <groupfilter function='level-members' level='[yr:ReceivedDate:ok]' />
               <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
             </groupfilter>
           </filter>
           <slices>
@@ -6326,6 +6479,14 @@
             <column-instance column='[Calculation_1848586965291671552]' derivation='Sum' name='[sum:Calculation_1848586965291671552:qk]' pivot='key' type='quantitative' />
             <column-instance column='[ReceivedDate]' derivation='Week-Trunc' name='[twk:ReceivedDate:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+            </groupfilter>
+          </filter>
           <slices>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
@@ -6444,6 +6605,14 @@
               <table-calc field='[federated.07we6dr180747v10gveja160dayo].[Calculation_2129358256321794054]' ordering-field='[federated.07we6dr180747v10gveja160dayo].[ReceivedDate]' ordering-type='Field' />
             </column-instance>
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+            </groupfilter>
+          </filter>
           <slices>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
@@ -6507,6 +6676,14 @@
                 <groupfilter function='member' level='[none:DonationType:nk]' member='&quot;Unidentified Donor&quot;' />
                 <groupfilter function='member' level='[none:DonationType:nk]' member='%null%' />
               </groupfilter>
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
             </groupfilter>
           </filter>
           <slices>
@@ -6577,6 +6754,14 @@
             <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
             <column-instance column='[Monetary]' derivation='Sum' name='[sum:Monetary:qk]' pivot='key' type='quantitative' />
           </datasource-dependencies>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+            </groupfilter>
+          </filter>
           <slices>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
@@ -6664,6 +6849,14 @@
             <groupfilter function='crossjoin' user:ui-action-filter='[Action5_A029BB6E1C234F8C84EEE11EFCC5C896]' user:ui-enumeration='all' user:ui-marker='enumerate'>
               <groupfilter function='level-members' level='[yr:ReceivedDate:ok]' />
               <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
             </groupfilter>
           </filter>
           <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[yr:Calculation_4812588841739190273:ok]'>
@@ -6757,6 +6950,14 @@
               <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
             </groupfilter>
           </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+            </groupfilter>
+          </filter>
           <slices>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
             <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
@@ -6829,6 +7030,14 @@
             <groupfilter function='crossjoin' user:ui-action-filter='[Action5_A029BB6E1C234F8C84EEE11EFCC5C896]' user:ui-enumeration='all' user:ui-marker='enumerate'>
               <groupfilter function='level-members' level='[yr:ReceivedDate:ok]' />
               <groupfilter function='level-members' level='[mn:ReceivedDate:ok]' />
+            </groupfilter>
+          </filter>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' context='true'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
             </groupfilter>
           </filter>
           <slices>
@@ -7146,7 +7355,7 @@
               </zone>
               <zone h='32001' id='38' param='horz' type-v2='layout-flow' w='66106' x='1188' y='66643'>
                 <zone h='32001' id='146' name='Donations by Donor Group' w='65481' x='1188' y='66643'>
-                  <layout-cache minwidth='180' type-h='fixed' type-w='scalable' />
+                  <layout-cache minwidth='260' type-h='fixed' type-w='scalable' />
                   <zone-style>
                     <format attr='border-color' value='#000000' />
                     <format attr='border-style' value='none' />
@@ -8079,7 +8288,7 @@
                         <zone h='45375' id='69' param='horz' type-v2='layout-flow' w='98400' x='800' y='8250'>
                           <zone forceUpdate='true' h='40375' id='68' type-v2='text' w='23500' x='2800' y='10750'>
                             <formatted-text>
-                              <run fontcolor='#000000' fontname='Benton Sans Book'>Champions account for nearly 80% of all donations but are the second smallest segment by size. Potential loyalists is the largest segment and have the highest likelihood of converting to Champions.</run>
+                              <run fontcolor='#000000' fontname='Benton Sans Book'>Champions account for nearly 80% of all donations but are the second smallest segment by size. Potential loyalists is the largest segment and have the highest likelihood of converting to Champions. </run>
                             </formatted-text>
                             <zone-style>
                               <format attr='border-color' value='#000000' />
@@ -8922,15 +9131,10 @@
             <card type='title' />
           </strip>
         </edge>
-        <edge name='right'>
-          <strip size='160'>
-            <card param='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' type='filter' />
-          </strip>
-        </edge>
       </cards>
       <simple-id uuid='{3DB02DF9-9C84-4807-94E6-31AE5850CFE1}' />
     </window>
-    <window class='worksheet' name='Company donations'>
+    <window class='worksheet' maximized='true' name='Company donations'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -9119,7 +9323,7 @@
           <zoom type='entire-view' />
         </viewpoint>
       </viewpoints>
-      <active id='146' />
+      <active id='112' />
       <grid grid-size='30' />
       <simple-id uuid='{F95123A6-FA9D-4AF5-A5A8-DD20642C0E37}' />
     </window>
@@ -9159,7 +9363,7 @@
       <active id='10' />
       <simple-id uuid='{10037858-A320-4E4B-B6FC-2C2531A5691D}' />
     </window>
-    <window class='dashboard' maximized='true' name='Page 4'>
+    <window class='dashboard' name='Page 4'>
       <viewpoints>
         <viewpoint name='Donations by Donor Group'>
           <zoom type='entire-view' />
@@ -9168,7 +9372,7 @@
           <zoom type='entire-view' />
         </viewpoint>
       </viewpoints>
-      <active id='68' />
+      <active id='76' />
       <simple-id uuid='{2E90F5B4-24A5-4CD1-B770-2AB0D1E69577}' />
     </window>
     <window class='dashboard' name='Story 1'>
