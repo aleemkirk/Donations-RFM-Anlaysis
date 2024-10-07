@@ -39,15 +39,15 @@ A more detailed dashboard can be found in [Tableau](https://public.tableau.com/v
 
 # Recommendations
 
-To encourage more contributions and donor activity, political nominees can utilize several targeted approaches in their engagement strategies:
+To encourage more contributions and donor activity, political parties can utilize several targeted approaches in their engagement strategies:
 
 
-1. For all political parties except the Labour Party, spend the majority of marketing and fundraising efforts on engaging individuals and companies that are potential loyalists, because they have the most potential of converting to champions in the future and are the most active donor types.  
+1. All parties except the Labour Party should spend the majority of marketing and fundraising efforts on engaging individuals and companies that are potential loyalists. These donors have the highest potential of becoming champions and account for 84% of potential loyalists.  
 
 2. For the Labour Party, focus on connections with trade unions and public funds but try to improve relations with the general public since there is a huge market for individual donations. 
 
 3. Employ face-to-face or telephone marketing strategies to maximize donations from potential loyalists. 
 
-4. Ramp up engagement efforts at the end of each quarter, since donors are more likely to give during these months. 
+4. Ramp up engagement efforts at the end of each quarter, since donors are more likely to give during these periods. 
 
 5. Spend more time investing in trade union relations and getting more engagement from trade unions. They have given the most donations since 2001 apart from individuals. However, their donations have been steadily declining since 2010.  
