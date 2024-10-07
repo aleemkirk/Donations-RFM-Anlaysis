@@ -5340,6 +5340,86 @@
       </table>
       <simple-id uuid='{5853E38C-E0E2-4733-9607-C906D6D82493}' />
     </worksheet>
+    <worksheet name='Donor Segment Breakdown'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='output' name='federated.07we6dr180747v10gveja160dayo' />
+          </datasources>
+          <datasource-dependencies datasource='federated.07we6dr180747v10gveja160dayo'>
+            <column caption='Donor Status' datatype='string' name='[DonorStatus]' role='dimension' type='nominal' />
+            <column caption='RFM Customer Segment' datatype='string' name='[RFM_Customer_Segment]' role='dimension' type='nominal' />
+            <_.fcp.ObjectModelTableType.false...column caption='Sheet1' datatype='integer' name='[__tableau_internal_object_id__].[Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9]' role='measure' type='quantitative' />
+            <column caption='Received Date' datatype='date' name='[ReceivedDate]' role='dimension' type='ordinal' />
+            <_.fcp.ObjectModelTableType.true...column caption='Sheet1' datatype='table' name='[__tableau_internal_object_id__].[Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9]' role='measure' type='quantitative' />
+            <column-instance column='[__tableau_internal_object_id__].[Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9]' derivation='Count' name='[__tableau_internal_object_id__].[cnt:Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[DonorStatus]' derivation='None' name='[none:DonorStatus:nk]' pivot='key' type='nominal' />
+            <column-instance column='[RFM_Customer_Segment]' derivation='None' name='[none:RFM_Customer_Segment:nk]' pivot='key' type='nominal' />
+            <column-instance column='[ReceivedDate]' derivation='None' name='[none:ReceivedDate:ok]' pivot='key' type='ordinal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]'>
+            <groupfilter function='union' user:ui-domain='database' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Company&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Individual&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Public Fund&quot;' />
+              <groupfilter function='member' level='[none:DonorStatus:nk]' member='&quot;Trade Union&quot;' />
+            </groupfilter>
+          </filter>
+          <shelf-sorts>
+            <shelf-sort-v2 dimension-to-sort='[federated.07we6dr180747v10gveja160dayo].[none:RFM_Customer_Segment:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.07we6dr180747v10gveja160dayo].[__tableau_internal_object_id__].[cnt:Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9:qk]' shelf='rows' />
+          </shelf-sorts>
+          <slices>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:ReceivedDate:ok]</column>
+            <column>[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='axis'>
+            <format attr='title' class='0' field='[federated.07we6dr180747v10gveja160dayo].[__tableau_internal_object_id__].[cnt:Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9:qk]' scope='cols' value='' />
+          </style-rule>
+          <style-rule element='cell'>
+            <format attr='height' field='[federated.07we6dr180747v10gveja160dayo].[none:RFM_Customer_Segment:nk]' value='161' />
+          </style-rule>
+          <style-rule element='header'>
+            <format attr='width' field='[federated.07we6dr180747v10gveja160dayo].[none:RFM_Customer_Segment:nk]' value='196' />
+          </style-rule>
+          <style-rule element='table'>
+            <format attr='background-color' value='#00000000' />
+          </style-rule>
+          <style-rule element='gridline'>
+            <format attr='line-pattern-only' value='solid' />
+            <format attr='stroke-size' value='0' />
+            <format attr='line-visibility' value='off' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='1' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' />
+              <text column='[federated.07we6dr180747v10gveja160dayo].[__tableau_internal_object_id__].[cnt:Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-show' value='true' />
+                <format attr='mark-labels-cull' value='true' />
+              </style-rule>
+              <style-rule element='pane'>
+                <format attr='minheight' value='-1' />
+                <format attr='maxheight' value='-1' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.07we6dr180747v10gveja160dayo].[none:RFM_Customer_Segment:nk]</rows>
+        <cols>[federated.07we6dr180747v10gveja160dayo].[__tableau_internal_object_id__].[cnt:Sheet1_5FC46CA7F0C84009B5A10805CBE6B1F9:qk]</cols>
+      </table>
+      <simple-id uuid='{9657DD36-8E5E-4C1E-B94D-A2A5572BC763}' />
+    </worksheet>
     <worksheet name='Donor Segments'>
       <table>
         <view>
@@ -8398,100 +8478,102 @@
       <size maxheight='800' maxwidth='1000' minheight='800' minwidth='1000' />
       <zones>
         <zone h='100000' id='4' type-v2='layout-basic' w='100000' x='0' y='0'>
-          <zone h='98000' id='80' param='horz' type-v2='layout-flow' w='98400' x='800' y='1000'>
-            <zone h='98000' id='78' param='horz' type-v2='layout-flow' w='98400' x='800' y='1000'>
-              <zone h='98000' id='75' param='horz' type-v2='layout-flow' w='98400' x='800' y='1000'>
-                <zone h='98000' id='72' param='horz' type-v2='layout-flow' w='98400' x='800' y='1000'>
-                  <zone h='98000' id='10' type-v2='layout-basic' w='98400' x='800' y='1000'>
-                    <zone h='90750' id='3' layout-strategy-id='distribute-evenly' param='vert' type-v2='layout-flow' w='98400' x='800' y='8250'>
-                      <zone h='90750' id='5' param='horz' type-v2='layout-flow' w='98400' x='800' y='8250'>
-                        <zone h='90750' id='7' layout-strategy-id='distribute-evenly' param='vert' type-v2='layout-flow' w='98400' x='800' y='8250'>
-                          <zone h='45375' id='69' param='horz' type-v2='layout-flow' w='98400' x='800' y='8250'>
-                            <zone forceUpdate='true' h='40375' id='68' type-v2='text' w='23500' x='2800' y='10750'>
-                              <formatted-text>
-                                <run fontcolor='#000000' fontname='Benton Sans Book'>Champions account for nearly 80% of all donations but are the second smallest segment by size. Potential loyalists is the largest segment and have the highest likelihood of converting to Champions. </run>
-                              </formatted-text>
+          <zone h='98000' id='83' param='horz' type-v2='layout-flow' w='98400' x='800' y='1000'>
+            <zone h='98000' id='80' param='horz' type-v2='layout-flow' w='98400' x='800' y='1000'>
+              <zone h='98000' id='78' param='horz' type-v2='layout-flow' w='98400' x='800' y='1000'>
+                <zone h='98000' id='75' param='horz' type-v2='layout-flow' w='98400' x='800' y='1000'>
+                  <zone h='98000' id='72' param='horz' type-v2='layout-flow' w='98400' x='800' y='1000'>
+                    <zone h='98000' id='10' type-v2='layout-basic' w='98400' x='800' y='1000'>
+                      <zone h='90750' id='3' layout-strategy-id='distribute-evenly' param='vert' type-v2='layout-flow' w='98400' x='800' y='8250'>
+                        <zone h='90750' id='5' param='horz' type-v2='layout-flow' w='98400' x='800' y='8250'>
+                          <zone h='90750' id='7' layout-strategy-id='distribute-evenly' param='vert' type-v2='layout-flow' w='98400' x='800' y='8250'>
+                            <zone h='45375' id='69' param='horz' type-v2='layout-flow' w='98400' x='800' y='8250'>
+                              <zone forceUpdate='true' h='40375' id='68' type-v2='text' w='23500' x='2800' y='10750'>
+                                <formatted-text>
+                                  <run fontcolor='#000000' fontname='Benton Sans Book'>Champions account for nearly 80% of all donations but are the second smallest segment by size. Potential loyalists is the largest segment and have the highest likelihood of converting to Champions. </run>
+                                </formatted-text>
+                                <zone-style>
+                                  <format attr='border-color' value='#000000' />
+                                  <format attr='border-style' value='none' />
+                                  <format attr='border-width' value='0' />
+                                  <format attr='margin' value='4' />
+                                </zone-style>
+                              </zone>
+                              <zone fixed-size='701' h='40375' id='73' is-fixed='true' name='Donor Segments' w='70900' x='26300' y='10750'>
+                                <layout-cache type-h='fixed' type-w='cell' />
+                                <zone-style>
+                                  <format attr='border-color' value='#000000' />
+                                  <format attr='border-style' value='none' />
+                                  <format attr='border-width' value='0' />
+                                  <format attr='margin' value='4' />
+                                </zone-style>
+                              </zone>
                               <zone-style>
                                 <format attr='border-color' value='#000000' />
                                 <format attr='border-style' value='none' />
                                 <format attr='border-width' value='0' />
-                                <format attr='margin' value='4' />
+                                <format attr='margin' value='10' />
+                                <format attr='padding' value='10' />
                               </zone-style>
                             </zone>
-                            <zone fixed-size='701' h='40375' id='73' is-fixed='true' name='Donor Segments' w='70900' x='26300' y='10750'>
-                              <layout-cache type-h='fixed' type-w='cell' />
+                            <zone h='45375' id='14' param='horz' type-v2='layout-flow' w='98400' x='800' y='53625'>
+                              <zone h='40375' id='81' name='Donor Segment Breakdown' w='74300' x='2800' y='56125'>
+                                <layout-cache minwidth='296' type-h='fixed' type-w='scalable' />
+                                <zone-style>
+                                  <format attr='border-color' value='#000000' />
+                                  <format attr='border-style' value='none' />
+                                  <format attr='border-width' value='0' />
+                                  <format attr='margin' value='4' />
+                                </zone-style>
+                              </zone>
+                              <zone fixed-size='161' forceUpdate='true' h='40375' id='16' is-fixed='true' type-v2='text' w='16900' x='77100' y='56125'>
+                                <formatted-text>
+                                  <run fontcolor='#000000' fontname='Benton Sans Book'>Individual and company donors are the largest demographic in each segment. They account for 60% and 24% of Potential Loyalists respectively. </run>
+                                </formatted-text>
+                                <zone-style>
+                                  <format attr='border-color' value='#000000' />
+                                  <format attr='border-style' value='none' />
+                                  <format attr='border-width' value='0' />
+                                  <format attr='margin' value='4' />
+                                </zone-style>
+                              </zone>
+                              <zone fixed-size='24' h='40375' id='17' is-fixed='true' type-v2='empty' w='3200' x='94000' y='56125'>
+                                <zone-style>
+                                  <format attr='border-color' value='#000000' />
+                                  <format attr='border-style' value='none' />
+                                  <format attr='border-width' value='0' />
+                                  <format attr='margin' value='4' />
+                                </zone-style>
+                              </zone>
                               <zone-style>
                                 <format attr='border-color' value='#000000' />
                                 <format attr='border-style' value='none' />
                                 <format attr='border-width' value='0' />
-                                <format attr='margin' value='4' />
+                                <format attr='margin' value='10' />
+                                <format attr='padding' value='10' />
                               </zone-style>
                             </zone>
-                            <zone-style>
-                              <format attr='border-color' value='#000000' />
-                              <format attr='border-style' value='none' />
-                              <format attr='border-width' value='0' />
-                              <format attr='margin' value='10' />
-                              <format attr='padding' value='10' />
-                            </zone-style>
-                          </zone>
-                          <zone h='45375' id='14' param='horz' type-v2='layout-flow' w='98400' x='800' y='53625'>
-                            <zone h='40375' id='76' name='Donations by Donor Group' w='74300' x='2800' y='56125'>
-                              <layout-cache minwidth='180' type-h='fixed' type-w='scalable' />
-                              <zone-style>
-                                <format attr='border-color' value='#000000' />
-                                <format attr='border-style' value='none' />
-                                <format attr='border-width' value='0' />
-                                <format attr='margin' value='4' />
-                              </zone-style>
-                            </zone>
-                            <zone fixed-size='161' forceUpdate='true' h='40375' id='16' is-fixed='true' type-v2='text' w='16900' x='77100' y='56125'>
-                              <formatted-text>
-                                <run fontcolor='#000000' fontname='Benton Sans Book'>Donations from all donor groups have seen a steady decline since 2017 and all groups except public fund donors have donated less than they did in 2001. </run>
-                              </formatted-text>
-                              <zone-style>
-                                <format attr='border-color' value='#000000' />
-                                <format attr='border-style' value='none' />
-                                <format attr='border-width' value='0' />
-                                <format attr='margin' value='4' />
-                              </zone-style>
-                            </zone>
-                            <zone fixed-size='24' h='40375' id='17' is-fixed='true' type-v2='empty' w='3200' x='94000' y='56125'>
-                              <zone-style>
-                                <format attr='border-color' value='#000000' />
-                                <format attr='border-style' value='none' />
-                                <format attr='border-width' value='0' />
-                                <format attr='margin' value='4' />
-                              </zone-style>
-                            </zone>
-                            <zone-style>
-                              <format attr='border-color' value='#000000' />
-                              <format attr='border-style' value='none' />
-                              <format attr='border-width' value='0' />
-                              <format attr='margin' value='10' />
-                              <format attr='padding' value='10' />
-                            </zone-style>
                           </zone>
                         </zone>
+                        <zone-style>
+                          <format attr='border-color' value='#000000' />
+                          <format attr='border-style' value='none' />
+                          <format attr='border-width' value='0' />
+                          <format attr='background-color' value='#f3f2f1' />
+                        </zone-style>
                       </zone>
-                      <zone-style>
-                        <format attr='border-color' value='#000000' />
-                        <format attr='border-style' value='none' />
-                        <format attr='border-width' value='0' />
-                        <format attr='background-color' value='#f3f2f1' />
-                      </zone-style>
-                    </zone>
-                    <zone forceUpdate='true' h='7000' id='8' type-v2='text' w='98400' x='800' y='1000'>
-                      <formatted-text>
-                        <run bold='true' fontsize='14'>Donor Segments</run>
-                      </formatted-text>
-                      <zone-style>
-                        <format attr='border-color' value='#000000' />
-                        <format attr='border-style' value='none' />
-                        <format attr='border-width' value='0' />
-                        <format attr='margin' value='4' />
-                        <format attr='background-color' value='#f3f2f1' />
-                      </zone-style>
+                      <zone forceUpdate='true' h='7000' id='8' type-v2='text' w='98400' x='800' y='1000'>
+                        <formatted-text>
+                          <run bold='true' fontsize='14'>Donor Segments</run>
+                        </formatted-text>
+                        <zone-style>
+                          <format attr='border-color' value='#000000' />
+                          <format attr='border-style' value='none' />
+                          <format attr='border-width' value='0' />
+                          <format attr='margin' value='4' />
+                          <format attr='background-color' value='#f3f2f1' />
+                        </zone-style>
+                      </zone>
                     </zone>
                   </zone>
                 </zone>
@@ -8506,7 +8588,7 @@
             <format attr='background-color' value='#f3f2f1' />
           </zone-style>
         </zone>
-        <zone h='12250' id='81' name='Donations by Donor Group' pane-specification-id='3' param='[federated.07we6dr180747v10gveja160dayo].[none:DonationType:nk]' type-v2='color' w='14400' x='77700' y='84250' />
+        <zone h='12250' id='84' name='Donor Segment Breakdown' pane-specification-id='1' param='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' type-v2='color' w='14000' x='77500' y='83125' />
       </zones>
       <devicelayouts>
         <devicelayout auto-generated='true' name='Phone'>
@@ -8529,7 +8611,7 @@
                 </zone>
                 <zone forceUpdate='true' h='44375' id='16' type-v2='text' w='24000' x='16400' y='54125'>
                   <formatted-text>
-                    <run fontcolor='#000000' fontname='Benton Sans Book'>Donations from all donor groups have seen a steady decline since 2017 and all groups except public fund donors have donated less than they did in 2001. </run>
+                    <run fontcolor='#000000' fontname='Benton Sans Book'>Individual and company donors are the largest demographic in each segment. They account for 60% and 24% of Potential Loyalists respectively. </run>
                   </formatted-text>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -9494,7 +9576,7 @@
       </cards>
       <simple-id uuid='{470609F2-EE3D-44FB-8523-2DF424706E2E}' />
     </window>
-    <window class='worksheet' maximized='true' name='Donations By Election'>
+    <window class='worksheet' name='Donations By Election'>
       <cards>
         <edge name='left'>
           <strip size='160'>
@@ -9549,6 +9631,34 @@
         </edge>
       </cards>
       <simple-id uuid='{7BB9D241-7690-4220-8F27-3C7271011AFE}' />
+    </window>
+    <window class='worksheet' name='Donor Segment Breakdown'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='1' param='[federated.07we6dr180747v10gveja160dayo].[none:DonorStatus:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{B53AB154-1CE7-4A1C-AF1A-71796A843613}' />
     </window>
     <window class='dashboard' name='2019 Donor Dashboard'>
       <viewpoints>
@@ -9644,16 +9754,16 @@
       <active id='10' />
       <simple-id uuid='{10037858-A320-4E4B-B6FC-2C2531A5691D}' />
     </window>
-    <window class='dashboard' name='Page 4'>
+    <window class='dashboard' maximized='true' name='Page 4'>
       <viewpoints>
-        <viewpoint name='Donations by Donor Group'>
+        <viewpoint name='Donor Segment Breakdown'>
           <zoom type='entire-view' />
         </viewpoint>
         <viewpoint name='Donor Segments'>
           <zoom type='entire-view' />
         </viewpoint>
       </viewpoints>
-      <active id='76' />
+      <active id='16' />
       <simple-id uuid='{2E90F5B4-24A5-4CD1-B770-2AB0D1E69577}' />
     </window>
     <window class='dashboard' name='Page 5'>
