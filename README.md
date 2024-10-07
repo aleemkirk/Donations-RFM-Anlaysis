@@ -32,6 +32,7 @@ A more detailed dashboard can be found in [Tableau](https://public.tableau.com/v
 # Insights
 
 ![1](/Images/Screenshot%202024-10-03%20at%208.04.36%E2%80%AFPM.png)
+![donations by political party](/Images/Screenshot%202024-10-06%20at%208.09.19%E2%80%AFPM.png)
 ![2](/Images/Screenshot%202024-10-03%20at%208.04.48%E2%80%AFPM.png)
 ![3](/Images/Screenshot%202024-10-03%20at%208.04.56%E2%80%AFPM.png)
 ![4](/Images/Screenshot%202024-10-06%20at%204.41.59%E2%80%AFPM.png)
