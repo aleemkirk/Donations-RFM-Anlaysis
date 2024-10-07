@@ -8490,7 +8490,7 @@
                             <zone h='45375' id='69' param='horz' type-v2='layout-flow' w='98400' x='800' y='8250'>
                               <zone forceUpdate='true' h='40375' id='68' type-v2='text' w='23500' x='2800' y='10750'>
                                 <formatted-text>
-                                  <run fontcolor='#000000' fontname='Benton Sans Book'>Champions account for nearly 80% of all donations but are the second smallest segment by size. Potential loyalists is the largest segment and have the highest likelihood of converting to Champions. </run>
+                                  <run fontcolor='#000000' fontname='Benton Sans Book'>Champions account for nearly 80% of all donations but is the second smallest segment by size. Potential loyalists is the largest segment and have the highest likelihood of converting to Champions. </run>
                                 </formatted-text>
                                 <zone-style>
                                   <format attr='border-color' value='#000000' />
@@ -8564,7 +8564,8 @@
                       </zone>
                       <zone forceUpdate='true' h='7000' id='8' type-v2='text' w='98400' x='800' y='1000'>
                         <formatted-text>
-                          <run bold='true' fontsize='14'>Donor Segments</run>
+                          <run bold='true' fontsize='14'>Donor Segment Breakdown</run>
+                          <run>Æ&#10;</run>
                         </formatted-text>
                         <zone-style>
                           <format attr='border-color' value='#000000' />
@@ -8598,7 +8599,8 @@
               <zone h='98000' id='63' param='vert' type-v2='layout-flow' w='98400' x='800' y='1000'>
                 <zone forceUpdate='true' h='7000' id='8' type-v2='text' w='98400' x='800' y='1000'>
                   <formatted-text>
-                    <run bold='true' fontsize='14'>Donor Segments</run>
+                    <run bold='true' fontsize='14'>Donor Segment Breakdown</run>
+                    <run>Æ&#10;</run>
                   </formatted-text>
                   <zone-style>
                     <format attr='border-color' value='#000000' />
@@ -9763,7 +9765,7 @@
           <zoom type='entire-view' />
         </viewpoint>
       </viewpoints>
-      <active id='16' />
+      <active id='68' />
       <simple-id uuid='{2E90F5B4-24A5-4CD1-B770-2AB0D1E69577}' />
     </window>
     <window class='dashboard' name='Page 5'>
